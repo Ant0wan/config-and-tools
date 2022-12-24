@@ -1,0 +1,63 @@
+---
+- name: Install packages
+  become: yes
+  become_method: sudo
+  package:
+    name: '{{ item }}'
+    state: present
+  with_items: "{{ python.packages }}"
+
+- name: Install Pep8 code style tools
+  become: yes
+  become_method: sudo
+  pip:
+    name:
+      - autopep8
+      - pycodestyle
+  when: python.pep8_compliance
+
+- name: Set aliases
+  lineinfile:
+    path: "~/.{{ lookup('env', 'SHELL') | basename | default('bash', True) }}rc"
+    line: 'alias {{ item }}'
+  with_items: '{{ python.aliases }}'
+  when: python.pep8_compliance
+
+- name: Get Pycharm
+  become: yes
+  become_method: sudo
+  get_url:
+    url: 'https://download.jetbrains.com/python/pycharm-{{ python.ide.pycharm.version }}.tar.gz'
+    dest: '/tmp/pycharm-{{ python.ide.pycharm.version }}.tar.gz'
+    mode: '0664'
+  when: python.ide.pycharm.configure
+  tags: pycharm
+
+- name: Untar Pycharm
+  become: yes
+  become_method: sudo
+  unarchive:
+    src: '/tmp/pycharm-{{ python.ide.pycharm.version }}.tar.gz'
+    dest: /opt/
+  when: python.ide.pycharm.configure
+  tags: pycharm
+
+- name: Add symlink to /usr/local/bin
+  become: yes
+  become_method: sudo
+  file:
+    src: "/opt/pycharm-{{ python.ide.pycharm.version }}/bin/pycharm.sh"
+    dest: "/usr/local/bin/pycharm"
+    state: link
+  when: python.ide.pycharm.configure
+  tags: pycharm
+
+#- name: Execute Pycharm
+#  become: yes
+#  become_method: sudo
+#  shell: ./pycharm.sh
+#  args:
+#    chdir: '/opt/pycharm-{{ python.ide.pycharm.version }}/bin'
+#    executable: /bin/sh
+#  when: python.ide.pycharm.configure
+#  tags: pycharm

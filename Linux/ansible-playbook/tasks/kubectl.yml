@@ -1,0 +1,25 @@
+---
+- name: Get kubectl
+  become: yes
+  become_method: sudo
+  package:
+    name: kubernetes
+    state: present
+
+- name: Set completion
+  lineinfile:
+    path: "~/.{{ lookup('env', 'SHELL') | basename | default('bash', True) }}rc"
+    line: "source <(kubectl completion {{ lookup('env', 'SHELL') | basename | default('bash', True) }})"
+  when: kubectl.autocompletion | default(false)
+
+- name: Set completion for 'k' alias
+  lineinfile:
+    path: "~/.{{ lookup('env', 'SHELL') | basename | default('bash', True) }}rc"
+    line: "alias k=kubectl"
+  when: kubectl.alias | default(false)
+
+- name: Set completion for 'k' alias
+  lineinfile:
+    path: "~/.{{ lookup('env', 'SHELL') | basename | default('bash', True) }}rc"
+    line: "complete -F __start_kubectl k"
+  when: kubectl.alias | default(false) and kubectl.autocompletion | default(false)

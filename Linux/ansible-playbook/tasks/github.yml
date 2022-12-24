@@ -1,0 +1,14 @@
+---
+- name: Get GitHub
+  become: yes
+  become_method: sudo
+  package:
+    name: gh
+    state: present
+    update_cache: yes
+
+- name: Set completion
+  lineinfile:
+    path: "~/.{{ lookup('env', 'SHELL') | basename | default('bash', True) }}rc"
+    line: "source <(gh completion -s {{ lookup('env', 'SHELL') | basename | default('bash', True) }})"
+  when: github.autocompletion | default(false)

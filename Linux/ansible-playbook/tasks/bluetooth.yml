@@ -1,0 +1,9 @@
+---
+- name: Stop service bluetooth, if running
+  become: yes
+  become_method: sudo
+  ansible.builtin.systemd:
+    name: bluetooth.service
+    state: stopped
+    enabled: no
+    masked: yes

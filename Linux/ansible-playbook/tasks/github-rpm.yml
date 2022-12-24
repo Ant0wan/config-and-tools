@@ -1,0 +1,11 @@
+---
+- name: Add GitHub CLI repository to yum list
+  become: yes
+  become_method: sudo
+  yum_repository:
+    name: gh-cli
+    description: packages for the GitHub CLI
+    enabled: yes
+    baseurl: https://cli.github.com/packages/rpm/
+    gpgkey:
+      - https://keyserver.ubuntu.com/pks/lookup?op=get&search=0xc99b11deb97541f0

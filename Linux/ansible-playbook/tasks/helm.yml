@@ -1,0 +1,25 @@
+---
+- name: Find if a version of Helm is installed
+  stat:
+    path: /usr/local/bin/helm
+  register: ifhelm
+
+- name: Get Helm script
+  get_url:
+    url: https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+    dest: /tmp/get_helm.sh
+    mode: 0755
+  when: ifhelm.stat.exists == false
+
+- name: Execute setup Helm script
+  shell:
+    cmd: ./get_helm.sh
+    executable: /bin/bash
+    chdir: /tmp
+  when: ifhelm.stat.exists == false
+
+- name: Set completion
+  lineinfile:
+    path: "~/.{{ lookup('env', 'SHELL') | basename | default('bash', True) }}rc"
+    line: "source <(helm completion {{ lookup('env', 'SHELL') | basename | default('bash', True) }})"
+  when: helm.autocompletion | default(false)

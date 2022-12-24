@@ -1,0 +1,124 @@
+{
+	"$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+	"blocks": [
+		{
+			"alignment": "left",
+			"segments": [
+				{
+					"foreground": "#dd1e1e",
+					"style": "plain",
+					"template": " \u26a1",
+					"type": "root"
+				},
+				{
+					"foreground": "#ffffff",
+					"properties": {
+						"alpine": "\uf300",
+						"arch": "\uf303",
+						"centos": "\uf304",
+						"debian": "\uf306",
+						"elementary": "\uf309",
+						"fedora": "\uf30a",
+						"gentoo": "\uf30d",
+						"linux": "\ue712",
+						"macos": "\ue711",
+						"manjaro": "\uf312",
+						"mint": "\uf30f",
+						"opensuse": "\uf314",
+						"raspbian": "\uf315",
+						"ubuntu": "\uf31c",
+						"windows": "\ue62a",
+						"wsl": "\ue712"
+					},
+					"style": "plain",
+					"template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
+					"type": "os"
+				},
+				{
+					"foreground": "#43CCEA",
+					"properties": {
+						"folder_icon": "\ue5fe",
+						"folder_separator_icon": "<#000000> \ue0bd </>",
+						"home_icon": "\uf7db",
+						"style": "agnoster_short"
+					},
+					"style": "plain",
+					"template": " {{ .Path }} ",
+					"type": "path"
+				},
+				{
+					"foreground": "#00ff0d",
+					"properties": {
+						"fetch_stash_count": true,
+						"fetch_status": true
+					},
+					"style": "plain",
+					"template": "<#000000>\ue0b1 </>{{ .HEAD }}{{ if .Staging.Changed }}<#FF6F00> \uf046 {{ .Staging.String }}</>{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if gt .StashCount 0 }} \uf692 {{ .StashCount }}{{ end }} ",
+					"type": "git"
+				},
+				{
+					"foreground": "#7900FF",
+					"properties": {
+						"fetch_stash_count": true,
+						"fetch_status": true
+					},
+					"style": "plain",
+					"template": "<#000000>| </>{{.WorkspaceName}}",
+					"type": "terraform"
+				}
+			],
+			"type": "prompt"
+		},
+		{
+			"alignment": "right",
+			"segments": [
+				{
+					"foreground": "#43CCEA",
+					"style": "diamond",
+					"template": " {{ if .SSHSession }} {{ .UserName }}<#FFFFFF> \uf817 </>{{ .HostName }} <#000000>\ue0b1 </>{{ end }}",
+					"type": "session"
+				},
+				{
+					"type": "kubectl",
+					"style": "diamond",
+					"powerline_symbol": "\uE0B0",
+					"foreground": "#FBDB0A",
+					"template": "\uFD31 {{.Context}}{{if .Namespace}} :: {{.Namespace}} {{end}} <#000000>\ue0b1 </>"
+				},
+				{
+					"foreground": "#C0C0C0",
+					"properties": {
+						"time_format": "3:04:05 PM"
+					},
+					"style": "diamond",
+					"template": "{{ .CurrentDate | date .Format }} ",
+					"type": "time"
+				}
+			],
+			"type": "prompt"
+		},
+		{
+			"alignment": "left",
+			"newline": true,
+			"segments": [
+				{
+					"foreground": "#00ff0d",
+					"foreground_templates": [
+						"{{ if gt .Code 0 }}#ff0000{{ end }}"
+					],
+					"properties": {
+						"always_enabled": true
+					},
+					"style": "plain",
+					"template": "\ufb0c ",
+					"type": "exit"
+				}
+			],
+			"type": "prompt"
+		}
+	],
+	"final_space": true,
+	"osc99": true,
+	"version": 2
+}
+

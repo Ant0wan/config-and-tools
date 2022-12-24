@@ -1,0 +1,21 @@
+---
+- name: Install oh-my-bash
+  get_url:
+    url: 'https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh'
+    dest: '/tmp/ohmybash.sh'
+    mode: '0664'
+
+- name: Check oh-my-bash
+  stat:
+    path: ~/.oh-my-bash
+  register: ohmyb
+
+- name: Install oh-my-bash
+  command: 'bash /tmp/ohmybash.sh'
+  when: ohmyb.stat.exists == false
+
+- name: Set bash theme
+  lineinfile:
+    path: ~/.bashrc
+    regexp: '^OSH_THEME=*'
+    line: 'OSH_THEME="purity"'

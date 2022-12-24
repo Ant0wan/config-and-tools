@@ -1,0 +1,73 @@
+---
+- name: Check Adblock xpi already in Firefox conf
+  find:
+    paths: ~/.mozilla/firefox/
+    patterns: 'adblockultimate@adblockultimate.net.xpi'
+    recurse: yes
+  register: adblock
+
+- name: Check Ghostery xpi already in Firefox conf
+  find:
+    paths: ~/.mozilla/firefox/
+    patterns: 'firefox@ghostery.com.xpi'
+    recurse: yes
+  register: ghostery
+
+  #- name: Print return information from the previous task Adblock
+  #  ansible.builtin.debug:
+  #    msg:
+  #      - '{{ adblock }}'
+  #      - '{{ ghostery }}'
+
+- name: Download adblocker
+  get_url:
+    url: 'https://addons.mozilla.org/firefox/downloads/file/3687310/adblocker_ultimate-3.7.10-an+fx.xpi'
+    dest: '/tmp/adblock_ultimate.xpi'
+    mode: '0664'
+  when: adblock.matched == 0
+
+- name: Install adblocker
+  command: 'firefox /tmp/adblock_ultimate.xpi'
+  when: adblock.matched == 0
+
+- name: Download ghostery
+  get_url:
+    url: 'https://addons.mozilla.org/firefox/downloads/file/3803046/ghostery_privacy_ad_blocker-8.5.7-an+fx.xpi'
+    dest: '/tmp/ghostery.xpi'
+    mode: '0664'
+  when: ghostery.matched == 0
+
+- name: Install ghostery
+  command: 'firefox /tmp/ghostery.xpi'
+  when: ghostery.matched == 0
+
+- name: Get prefs.js full path
+  find:
+    paths: '~/.mozilla/firefox/'
+    patterns: 'prefs.js'
+    recurse: yes
+  register: prefspath
+
+- name: Change DNS mode
+  lineinfile:
+    path: '{{ prefspath.files.0.path }}'
+    regexp: '^user_pref\(\"network.trr.mode\"'
+    line: 'user_pref("network.trr.mode", 2);'
+
+- name: Add trr cleanup
+  lineinfile:
+    path: '{{ prefspath.files.0.path }}'
+    regexp: '^user_pref\(\"network\.trr\.blocklist_cleanup_done\"'
+    line: 'user_pref("network.trr.blocklist_cleanup_done", true);'
+
+- name: Add doh custom uri
+  lineinfile:
+    path: '{{ prefspath.files.0.path }}'
+    regexp: '^user_pref\(\"network\.trr\.custom_uri\"'
+    line: 'user_pref("network.trr.custom_uri", "{{ firefox.doh | default(doh) }}");'
+
+- name: Add doh uri
+  lineinfile:
+    path: '{{ prefspath.files.0.path }}'
+    regexp: '^user_pref\(\"network\.trr\.uri\"'
+    line: 'user_pref("network.trr.uri", "{{ firefox.doh | default(doh) }}");'

@@ -1,0 +1,7 @@
+---
+- name: Install curl
+  become: yes
+  become_method: sudo
+  package:
+    name: curl
+    state: present

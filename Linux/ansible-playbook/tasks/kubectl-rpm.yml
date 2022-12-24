@@ -1,0 +1,17 @@
+---
+- name: Add Kubectl repository
+  become: yes
+  become_method: sudo
+  yum_repository:
+    name: Kubernetes
+    description: Kubernetes YUM repo
+    file: kubectl
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    enabled: yes
+    gpgcheck: yes
+    gpgkey:
+      - https://packages.cloud.google.com/yum/doc/yum-key.gpg
+      - https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+
+    # https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_repository_module.html
+    # https://cloud.google.com/sdk/docs/install#rpm

@@ -1,0 +1,15 @@
+---
+- name: Install vim
+  become: yes
+  become_method: sudo
+  package:
+    name: vim
+    state: latest
+
+- name: Set config
+  copy:
+    src: files/vimrc
+    dest: ~/.vimrc
+    mode: '0664'
+    force: yes
+

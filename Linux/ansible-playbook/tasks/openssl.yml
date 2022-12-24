@@ -1,0 +1,7 @@
+---
+- name: Install openssl
+  become: yes
+  become_method: sudo
+  package:
+    name: openssl
+    state: present

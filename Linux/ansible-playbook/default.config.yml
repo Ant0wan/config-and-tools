@@ -1,0 +1,112 @@
+---
+ansible_python_interpreter: '/usr/bin/python3'
+
+bluetooth:
+  remove: true
+
+git:
+  configure: true
+  user: 'Antoine Barthelemy'
+  email: 'antoine@linux.com'
+  credentials:
+    store: true
+
+openssl:
+  configure: true
+
+curl:
+  configure: true
+
+kubectl:
+  configure: true
+  autocompletion: true
+  alias: true
+
+vim:
+  configure: true
+
+bash:
+  ohmybash:
+    configure: true
+    theme: 'purity'
+
+gnome:
+  configure: true
+  wallpaper: false
+
+firefox:
+  configure: true
+  doh: "https://doh.42l.fr/dns-query"
+
+c:
+  configure: true
+  packages:
+    - gcc
+    - make
+    - autoconf
+
+rust:
+  configure: true
+  autocompletion: true
+
+python:
+  configure: true
+  packages:
+    - python3.8
+    - python3.9
+    - pip
+    - pylint
+  pep8_compliance: true
+  aliases:
+    - "pyfmt='autopep8 --in-place --aggressive --aggressive'"
+    - "normpy='pycodestyle --show-source --show-pep8'"
+  ide:
+    pycharm:
+      configure: true
+      version: community-2021.3.1
+
+haskell:
+  configure: true
+  autocompletion: true
+
+k9s:
+  configure: false
+
+gcloud:
+  configure: false
+  init: true
+  additional_components:
+    - google-cloud-sdk-app-engine-python
+    - google-cloud-sdk-app-engine-python-extras
+    - google-cloud-sdk-app-engine-java
+    - google-cloud-sdk-app-engine-go
+    - google-cloud-sdk-bigtable-emulator
+    - google-cloud-sdk-cbt
+    - google-cloud-sdk-cloud-build-local
+    - google-cloud-sdk-datalab
+    - google-cloud-sdk-datastore-emulator
+    - google-cloud-sdk-firestore-emulator
+    - google-cloud-sdk-pubsub-emulator
+
+kustomize:
+  configure: false
+  autocompletion: true
+
+flux:
+  configure: false
+  autocompletion: true
+
+sops:
+  configure: false
+
+github:
+  configure: false
+  autocompletion: true
+
+gitlab:
+  configure: false
+  autocompletion: true
+
+helm:
+  configure: true
+  autocompletion: true

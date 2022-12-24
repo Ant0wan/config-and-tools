@@ -1,0 +1,32 @@
+- name: Get Rust script
+  get_url:
+    url: https://sh.rustup.rs
+    dest: /tmp/rustup.sh
+    mode: 0755
+
+- name: Execute setup Rust script
+  shell:
+    cmd: ./rustup.sh --quiet -y
+    executable: /bin/sh
+    chdir: /tmp/
+
+- name: Set Rsutup completion
+  lineinfile:
+    path: "~/.{{ lookup('env', 'SHELL') | basename | default('bash', True) }}rc"
+    line: "source <({{ lookup('env','HOME') }}/.cargo/bin/rustup completions {{ lookup('env', 'SHELL') | basename | default('bash', True) }})"
+  when: rust.autocompletion | default(false)
+
+- name: Get Cargo completion command
+  command:
+    argv:
+      - rustup
+      - completions
+      - "{{ lookup('env', 'SHELL') | basename | default('bash', True) }}"
+      - cargo
+  register: cargocmd
+
+- name: Set Cargo completion
+  lineinfile:
+    path: "~/.{{ lookup('env', 'SHELL') | basename | default('bash', True) }}rc"
+    line: "{{ cargocmd.stdout }}"
+  when: rust.autocompletion | default(false)

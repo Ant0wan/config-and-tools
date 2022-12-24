@@ -1,0 +1,16 @@
+---
+- name: Test k9s
+  stat:
+    path: '~/.local/bin/k9s'
+  register: p
+
+- name: Get k9s
+  get_url:
+    url: 'https://webinstall.dev/k9s'
+    dest: '/tmp/k9s.sh'
+    mode: '0644'
+  when: p.stat.exists and p.stat.isreg
+
+- name: Install k9s
+  command: 'bash /tmp/k9s0sh'
+  when: p.stat.exists and p.stat.isreg

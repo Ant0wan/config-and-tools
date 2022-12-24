@@ -1,0 +1,43 @@
+---
+#- name: Install REHL Sops dependencies
+#  package:
+#  become: yes
+#  become_method: sudo
+#  package:
+#    name: '{{ item }}'
+#    state: present
+#  with_items:
+#    - gcc
+#    - git
+#    - libffi-devel
+#    - libyaml-devel
+#    - make
+#    - openssl
+#    - openssl-devel
+#    - python-devel
+#    - python-pip
+#  when: ansible_os_family == "RedHat" | default(false)
+#
+#- name: Install Debian Sops dependencies
+#  package:
+#  become: yes
+#  become_method: sudo
+#  package:
+#    name: '{{ item }}'
+#    state: present
+#  with_items:
+#    - gcc
+#    - git
+#    - libffi-dev
+#    - libssl-dev
+#    - libyaml-dev
+#    - make
+#    - openssl
+#    - python-dev
+#    - python-pip
+#  when: ansible_os_family == "Debian" | default(false)
+
+- name: Install Sops python package
+  pip:
+    name: sops
+    state: latest

@@ -1,0 +1,116 @@
+---
+- hosts: all
+
+  vars_files:
+    - default.config.yml
+
+  tasks:
+    - import_tasks: tasks/bluetooth.yml
+      when: bluetooth.remove | default(false)
+      tags: ['bluetooth']
+
+    - import_tasks: tasks/bluetooth-deb.yml
+      when: ansible_os_family == "Debian" and bluetooth.remove | default(false)
+      tags: ['bluetooth']
+
+    - import_tasks: tasks/git.yml
+      when: git.configure | default(false)
+      tags: ['git']
+
+    - import_tasks: tasks/openssl.yml
+      when: openssl.configure | default(false)
+      tags: ['openssl']
+
+    - import_tasks: tasks/curl.yml
+      when: curl.configure | default(false)
+      tags: ['curl']
+
+    - import_tasks: tasks/vim.yml
+      when: vim.configure | default(false)
+      tags: ['vim']
+
+    - import_tasks: tasks/bash.yml
+      when: bash.ohmybash.configure | default(false)
+      tags: ['bash']
+
+    - import_tasks: tasks/gnome.yml
+      when: gnome.configure | default(false)
+      tags: ['gnome']
+
+    - import_tasks: tasks/firefox.yml
+      when: firefox.configure | default(false)
+      tags: ['firefox']
+      vars:
+        doh: 'https://doh.42l.fr/dns-query'
+
+    - import_tasks: tasks/kubectl-rpm.yml
+      when: ansible_os_family == "RedHat" and kubectl.configure | default(false)
+      tags: ['kubectl']
+
+    - import_tasks: tasks/kubectl.yml
+      when: kubectl.configure | default(false)
+      tags: ['kubectl']
+
+    - import_tasks: tasks/c.yml
+      when: c.configure | default(false)
+      tags: ['c']
+
+    - import_tasks: tasks/rust.yml
+      when: rust.configure | default(false)
+      tags: ['rust']
+
+    - import_tasks: tasks/stack.yml
+      when: haskell.configure | default(false)
+      tags: ['stack', 'haskell']
+
+    - import_tasks: tasks/python.yml
+      when: python.configure | default(false)
+      tags: ['python']
+
+    - import_tasks: tasks/k9s.yml
+      when: k9s.configure | default(false)
+      tags: ['k9s']
+
+    - import_tasks: tasks/gcloud-deb.yml
+      when: ansible_os_family == "Debian" and gcloud.configure | default(false)
+      tags: ['gcloud']
+
+    - import_tasks: tasks/gcloud-rpm.yml
+      when: ansible_os_family == "RedHat" and gcloud.configure | default(false)
+      tags: ['gcloud']
+
+    - import_tasks: tasks/gcloud.yml
+      when: gcloud.configure | default(false)
+      tags: ['gcloud']
+
+    - import_tasks: tasks/kustomize.yml
+      when: kustomize.configure | default(false)
+      tags: ['kustomize']
+
+    - import_tasks: tasks/flux.yml
+      when: flux.configure | default(false)
+      tags: ['flux']
+
+    - import_tasks: tasks/sops.yml
+      when: sops.configure | default(false)
+      tags: ['sops']
+
+    - import_tasks: tasks/github-deb.yml
+      when: ansible_os_family == "Debian" and github.configure | default(false)
+      tags: ['github']
+
+    - import_tasks: tasks/github-rpm.yml
+      when: ansible_os_family == "RedHat" and github.configure | default(false)
+      tags: ['github']
+
+    - import_tasks: tasks/github.yml
+      when: github.configure | default(false)
+      tags: ['github']
+
+    - import_tasks: tasks/gitlab.yml
+      when: gitlab.configure | default(false)
+      tags: ['gitlab']
+
+    - import_tasks: tasks/helm.yml
+      when: helm.configure | default(false)
+      tags: ['helm']

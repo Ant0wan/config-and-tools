@@ -1,0 +1,17 @@
+[user]
+	email = antoine@linux.com
+	name = Antoine Barthelemy
+	signingkey = {{signing_key}}
+[push]
+	autoSetupRemote = true
+[pull]
+	rebase = true
+[commit]
+	gpgsign = true
+[credential]
+	helper = store
+[core]
+	editor = vim
+	excludesfile = ~/.gitignore
+[url "git@github.com:"]
+	insteadOf = https://github.com/
