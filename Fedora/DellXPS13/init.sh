@@ -53,6 +53,7 @@ for key in $(bw get item ssh | jq -r '.fields[] | @base64'); do
 		;;
 	esac
 done
+sudo systemctl restart sshd
 
 for key in $(bw get item gpg | jq -r '.fields[] | @base64'); do
 	_jq '.value' | base64 --decode >"$(_jq '.name')"
