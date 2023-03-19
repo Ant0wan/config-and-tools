@@ -57,5 +57,6 @@ sed -i "s/{{signing_key}}/${SIGNING_KEY[0]}/g" ~/.gitconfig
 rm -rf ~/.vim
 git clone git@github.com:Ant0wan/Arthur.git ~/.vim/
 # https://doh.lacontrevoie.fr/dns-query <- DoH
+# DNS rooter: 80.67.169.12, 80.67.169.40
 
 reboot
