@@ -11,4 +11,4 @@ pathvirt="$(which virtualenvwrapper.sh)"
 grep -a "source $pathvirt" "$HOME/.$(basename "$SHELL")rc" || printf "source %s\n" "$pathvirt" >> "$HOME/.$(basename "$SHELL")rc"
 . "$pathvirt"
 python3 -m pip config set global.require-virtualenv True
-python3 -m pip config --site set global.index-url "https://pypi.org/simple"
+sudo python3 -m pip config --site set global.index-url "https://pypi.org/simple"
