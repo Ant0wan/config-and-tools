@@ -39,6 +39,7 @@ export BW_SESSION
 function _jq() {
 	echo "${key}" | base64 --decode | jq -r "${1}"
 }
+mkdir -p ~/.ssh
 eval "$(ssh-agent -s)"
 for key in $(bw get item ssh | jq -r '.fields[] | @base64'); do
 	_jq '.value' | base64 --decode >~/.ssh/"$(_jq '.name')"
