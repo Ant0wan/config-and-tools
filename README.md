@@ -12,6 +12,10 @@
 # Install
 
 ```shell
+sh -c "$(wget https://abarthel.dev/init.sh -O -)"
+```
+
+```shell
 sh -c "$(wget https://raw.github.com/Ant0wan/config-and-tools/master/config/init.sh -O -)"
 ```
 
