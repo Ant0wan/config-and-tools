@@ -16,6 +16,6 @@ function load() {
 	test -e ~/.bashrc.d/$1 || echo "load: error loading config: $1 not found"
 	source ~/.bashrc.d/$1
 }
-complete -W "$(ls ~/.bashrc.d/)" load
+complete -W '$(ls ~/.bashrc.d/)' load
 
 load terraform
