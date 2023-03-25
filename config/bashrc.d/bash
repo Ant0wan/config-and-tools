@@ -1,0 +1,11 @@
+# .bashrc
+
+eval "$(oh-my-posh init bash --config ~/.config/theme.omp.json)"
+export EDITOR='/usr/bin/vim'
+
+export HISTTIMEFORMAT="%F %T "
+export HISTCONTROL=ignorespace:ignoredups:erasedups
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+shopt -s histappend
+

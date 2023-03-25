@@ -16,6 +16,14 @@ sh -c "$(wget https://abarthel.dev/init.sh -O -)"
 ```
 
 ```shell
+wget -q -O - abarthel.dev/init.sh | bash
+```
+
+```shell
+curl abarthel.dev/init.sh | bash
+```
+
+```shell
 sh -c "$(wget https://raw.github.com/Ant0wan/config-and-tools/master/config/init.sh -O -)"
 ```
 
