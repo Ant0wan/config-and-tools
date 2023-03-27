@@ -1,8 +1,13 @@
 # .bashrc
 
-eval "$(oh-my-posh init bash --config ~/.config/theme.omp.json)"
-export EDITOR='/usr/bin/vim'
+eval "$(oh-my-posh init bash --config ~/.neon.omp.json)"
 
+alias g='grep -arn --exclude-dir=.terraform*'
+alias ls='ls --color=always'
+alias vi='vim'
+
+export EDITOR='/usr/bin/vim'
+export GPG_TTY="$(tty)"
 export HISTTIMEFORMAT="%F %T "
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 export HISTSIZE=10000
