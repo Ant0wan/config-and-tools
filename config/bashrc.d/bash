@@ -1,0 +1,16 @@
+# .bashrc
+
+eval "$(oh-my-posh init bash --config ~/.theme.omp.json)"
+
+alias g='grep -arn --exclude-dir=.terraform*'
+alias ls='ls --color=always'
+alias vi='vim'
+
+export EDITOR='/usr/bin/vim'
+export GPG_TTY="$(tty)"
+export HISTTIMEFORMAT="%F %T "
+export HISTCONTROL=ignorespace:ignoredups:erasedups
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+shopt -s histappend
+
