@@ -1,6 +1,6 @@
 # .bashrc
 
-eval "$(oh-my-posh init bash --config ~/.neon.omp.json)"
+eval "$(oh-my-posh init bash --config ~/.theme.omp.json)"
 
 alias g='grep -arn --exclude-dir=.terraform*'
 alias ls='ls --color=always'
