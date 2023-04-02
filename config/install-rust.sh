@@ -3,4 +3,4 @@ set -o errexit
 set -o errtrace
 set -o pipefail
 
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y
