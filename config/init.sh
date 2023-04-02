@@ -63,6 +63,6 @@ done
 sed -i "s/{{signing_key}}/${SIGNING_KEY[0]}/g" ~/.gitconfig
 
 rm -rf ~/.vim
-git clone git@github.com:Ant0wan/Arthur.git ~/.vim/
+git clone git@github.com:Ant0wan/vim-plugin.git ~/.vim/
 
 reboot
