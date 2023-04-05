@@ -65,6 +65,16 @@
 					"style": "plain",
 					"template": "<#000000>| </>{{.WorkspaceName}}",
 					"type": "terraform"
+				},
+				{
+					"foreground": "#4584b6",
+					"properties": {
+						"display_mode": "context",
+						"fetch_virtual_env": true
+					},
+					"style": "plain",
+					"template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }} {{ .Full }}{{ end }} ",
+					"type": "python"
 				}
 			],
 			"type": "prompt"
