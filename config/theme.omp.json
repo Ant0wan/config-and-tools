@@ -65,16 +65,6 @@
 					"style": "plain",
 					"template": "<#000000>| </>{{.WorkspaceName}}",
 					"type": "terraform"
-				},
-				{
-					"foreground": "#4584b6",
-					"properties": {
-						"display_mode": "context",
-						"fetch_virtual_env": true
-					},
-					"style": "plain",
-					"template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }} {{ .Full }}{{ end }} ",
-					"type": "python"
 				}
 			],
 			"type": "prompt"
@@ -94,6 +84,16 @@
 					"powerline_symbol": "\uE0B0",
 					"foreground": "#FBDB0A",
 					"template": "\uFD31 {{.Context}}{{if .Namespace}} :: {{.Namespace}} {{end}} <#000000>\ue0b1 </>"
+				},
+				{
+					"foreground": "#ffe873",
+					"properties": {
+						"display_mode": "context",
+						"fetch_virtual_env": true
+					},
+					"style": "plain",
+					"template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}<#4584b6>{{ .Venv }}</> {{ end }} {{ .Full }}{{ end }} ",
+					"type": "python"
 				},
 				{
 					"foreground": "#C0C0C0",
