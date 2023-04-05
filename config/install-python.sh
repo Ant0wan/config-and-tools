@@ -32,5 +32,7 @@ pyenv local 3.11
 pyenv global 3.11
 
 python -m ensurepip --upgrade
+pip install autopep8
+pip install pycodestyle
 pip config --global set global.require-virtualenv True
 pip config debug
