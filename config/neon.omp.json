@@ -104,15 +104,24 @@
 				{
 					"foreground": "#ffe873",
 					"background": "#29315A",
-					"leading_diamond": " \ue0b6",
 					"properties": {
 						"display_mode": "context",
 						"fetch_virtual_env": true
 					},
 					"style": "diamond",
 					"template": " {{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}<#4584b6>{{ .Venv }}</> {{ end }} {{ .Full }}{{ end }} ",
+					"leading_diamond": " \ue0b6",
 					"trailing_diamond": "\ue0b4",
 					"type": "python"
+				},
+				{
+					"type": "rust",
+					"style": "diamond",
+					"leading_diamond": " \ue0b6",
+					"trailing_diamond": "\ue0b4",
+					"foreground": "#193549",
+					"background": "#99908a",
+					"template": "  {{ .Full }} "
 				}
 			],
 			"type": "prompt"
