@@ -1,6 +1,6 @@
 <br />
 <p align="center">
-    <img src=".logo.png" alt="Dell XPS 13 - Linux" width="80" height="80">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25719.png" alt="Tux" width="80" height="80">
 
   <h1 align="center">Linux on Dell XPS 13</h1>
 
