@@ -24,11 +24,11 @@ curl abarthel.dev/init.sh | bash
 ```
 
 ```shell
-sh -c "$(wget https://raw.github.com/Ant0wan/config-and-tools/master/config/init.sh -O -)"
+sh -c "$(wget https://raw.github.com/Ant0wan/config-and-tools/master/init.sh -O -)"
 ```
 
 ```shell
-sh -c "$(curl -fsSL https://raw.github.com/Ant0wan/config-and-tools/master/config/init.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/Ant0wan/config-and-tools/master/init.sh)"
 ```
 
 # DNS
