@@ -19,11 +19,12 @@ sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/
 sudo chmod +x /usr/local/bin/oh-my-posh
 oh-my-posh font install Meslo
 oh-my-posh get shell
-wget "${githubsource}theme.omp.json" -O ~/.theme.omp.json
-wget "${githubsource}bashrc" -O ~/.bashrc
+wget "${githubsource}theme.omp.json" -O "$HOME"/.theme.omp.json
+wget "${githubsource}bashrc" -O "$HOME"/.bashrc
+mkdir -p "$HOME"/.bashrc.d/
 
-wget "${githubsource}gitconfig" -O ~/.gitconfig
-wget "${githubsource}gitignore" -O ~/.gitignore
+wget "${githubsource}gitconfig" -O "$HOME"/.gitconfig
+wget "${githubsource}gitignore" -O "$HOME"/.gitignore
 
 wget 'https://vault.bitwarden.com/download/?app=cli&platform=linux' -O bw-cli.zip
 unzip bw-cli.zip
@@ -39,17 +40,17 @@ export BW_SESSION
 function _jq() {
 	echo "${key}" | base64 --decode | jq -r "${1}"
 }
-mkdir -p ~/.ssh
+mkdir -p "$HOME"/.ssh
 eval "$(ssh-agent -s)"
 for key in $(bw get item ssh | jq -r '.fields[] | @base64'); do
-	_jq '.value' | base64 --decode >~/.ssh/"$(_jq '.name')"
+	_jq '.value' | base64 --decode >"$HOME"/.ssh/"$(_jq '.name')"
 	case "$(_jq '.name')" in
 	*".pub")
-		chmod 0644 ~/.ssh/"$(_jq '.name')"
+		chmod 0644 "$HOME"/.ssh/"$(_jq '.name')"
 		;;
 	*)
-		chmod 0600 ~/.ssh/"$(_jq '.name')"
-		ssh-add ~/.ssh/"$(_jq '.name')"
+		chmod 0600 "$HOME"/.ssh/"$(_jq '.name')"
+		ssh-add "$HOME"/.ssh/"$(_jq '.name')"
 		;;
 	esac
 done
@@ -60,9 +61,9 @@ for key in $(bw get item gpg | jq -r '.fields[] | @base64'); do
 	export SIGNING_KEY+=("$(gpg --import "$(_jq '.name')" |& head -n 1 | grep -Eo '[0-9A-Z]{16}+')")
 	rm "$(_jq '.name')"
 done
-sed -i "s/{{signing_key}}/${SIGNING_KEY[0]}/g" ~/.gitconfig
+sed -i "s/{{signing_key}}/${SIGNING_KEY[0]}/g" "$HOME"/.gitconfig
 
-rm -rf ~/.vim
-git clone git@github.com:Ant0wan/vim-plugin.git ~/.vim/
+rm -rf "$HOME"/.vim
+git clone git@github.com:Ant0wan/vim-plugin.git "$HOME"/.vim/
 
 reboot
