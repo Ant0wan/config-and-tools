@@ -14,21 +14,6 @@ function clean_tf_ws() {
 	done
 }
 
-complete -d -f -C ~/.terraform.versions/terraform_1.2.4 terraform
-
-alias t='terraform'
-alias tf='tf-autoplan'
-alias tfi='tf-autoplan --mode interactive apply .'
-alias tfid='tf-autoplan --mode interactive destroy .'
-alias tfip='tf-autoplan --mode interactive plan .'
-alias tflock='terraform providers lock -platform=linux_amd64 -platform=linux_arm64 -platform=darwin_amd64 -platform=windows_amd64 -platform=darwin_arm64'
-alias tg='terraform graph  -draw-cycles -type=apply'
-alias ti='terraform init'
-alias tv='terraform validate'
-alias twl='terraform workspace list'
-alias tws='terraform workspace select'
-alias fmt='terraform fmt -recursive'
-
 function tf_fmt_ending_eol() {
     for var in "$@"
     do
@@ -46,4 +31,19 @@ function tfcheck() {
     tf_fmt_ending_eol *tf
     tflint --format=compact .
 }
+
+alias fmt='terraform fmt -recursive'
+alias t='terraform'
+alias tf='tf-autoplan'
+alias tfi='tf-autoplan --mode interactive apply .'
+alias tfid='tf-autoplan --mode interactive destroy .'
+alias tfip='tf-autoplan --mode interactive plan .'
+alias tflock='terraform providers lock -platform=linux_amd64 -platform=linux_arm64 -platform=darwin_amd64 -platform=windows_amd64 -platform=darwin_arm64'
+alias tg='terraform graph  -draw-cycles -type=apply'
+alias ti='terraform init'
+alias tv='terraform validate'
+alias twl='terraform workspace list'
+alias tws='terraform workspace select'
+
+complete -d -f -C ~/.terraform.versions/terraform_1.2.4 terraform
 
