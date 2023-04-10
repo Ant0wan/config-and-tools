@@ -3,7 +3,7 @@
     <img src="https://cdn-icons-png.flaticon.com/512/25/25719.png" alt="Tux" width="80" height="80">
 
   <h1 align="center">Config and Tools</h1>
-  <p align="center">Configuration bootstrap and Bash scripts.<i></i>
+  <p align="center">Automated Linux setup and customization using Bash scripts and .bashrc files.<i></i>
 
 
 </p>
