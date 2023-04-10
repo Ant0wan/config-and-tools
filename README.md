@@ -2,7 +2,7 @@
 <p align="center">
     <img src="https://cdn-icons-png.flaticon.com/512/25/25719.png" alt="Tux" width="80" height="80">
 
-  <h1 align="center">Linux on Dell XPS 13</h1>
+  <h1 align="center">Config and Tools</h1>
 
 </p>
 
