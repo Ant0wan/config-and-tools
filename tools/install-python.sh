@@ -36,3 +36,8 @@ pip install autopep8
 pip install pycodestyle
 pip config --global set global.require-virtualenv True
 pip config debug
+
+pushd "$(git rev-parse --show-toplevel)" || exit 1
+cp config/bashrc.d/python "$HOME"/.bashrc.d/python
+popd || exit 1
+

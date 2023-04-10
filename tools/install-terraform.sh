@@ -8,3 +8,7 @@ touch ~/.bashrc
 sudo mv /usr/bin/terraform /usr/local/bin/terraform
 terraform -install-autocomplete
 
+pushd "$(git rev-parse --show-toplevel)" || exit 1
+cp config/bashrc.d/terraform "$HOME"/.bashrc.d/terraform
+popd || exit 1
+
