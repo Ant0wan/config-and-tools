@@ -1,0 +1,3 @@
+# .bashrc
+
+alias cfmt='clang-format -i'
