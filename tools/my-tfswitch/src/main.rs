@@ -1,6 +1,5 @@
 use std::env;
 use std::io::Result;
-use std::io::{self, Write};
 use std::process::Command;
 
 fn main() -> Result<()> {
@@ -10,13 +9,10 @@ fn main() -> Result<()> {
         .output()
         .expect("failed to get Terraform binary");
 
-    println!("{:?}", args);
-    let output = Command::new("terraform")
+    let _status = Command::new("terraform")
         .args(args)
-        .output()
+        .status()
         .expect("failed to get Terraform binary");
-    io::stdout().write_all(&output.stdout).unwrap();
-    io::stdout().write_all(&output.stderr).unwrap();
 
     Ok(())
 }
