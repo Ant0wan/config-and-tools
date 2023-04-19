@@ -11,9 +11,7 @@ unzip "$BIN"
 sudo install terraform /usr/local/bin/
 rm -rf "$BIN" terraform
 
-touch "$HOME/.bashrc"
 mkdir -p "$HOME/.bashrc.d/"
-terraform -install-autocomplete
 pushd "$(git rev-parse --show-toplevel)" || exit 1
 cp config/bashrc.d/terraform "$HOME"/.bashrc.d/terraform
 popd || exit 1
