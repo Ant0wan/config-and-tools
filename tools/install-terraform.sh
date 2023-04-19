@@ -1,13 +1,19 @@
 #!/usr/bin/env bash
+set -o errexit
+set -o errtrace
+set -o pipefail
 
-sudo dnf install -y dnf-plugins-core
-sudo dnf config-manager --add-repo https://rpm.releases.hashicorp.com/fedora/hashicorp.repo
-sudo dnf -y install terraform
+VERSION='1.4.5'
+BIN="terraform_${VERSION}_linux_amd64.zip"
 
-touch ~/.bashrc
-sudo mv /usr/bin/terraform /usr/local/bin/terraform
+curl "https://releases.hashicorp.com/terraform/$VERSION/$BIN" -o "$BIN"
+unzip "$BIN"
+sudo install terraform /usr/local/bin/
+rm -rf "$BIN" terraform
+
+touch "$HOME/.bashrc"
+mkdir -p "$HOME/.bashrc.d/"
 terraform -install-autocomplete
-
 pushd "$(git rev-parse --show-toplevel)" || exit 1
 cp config/bashrc.d/terraform "$HOME"/.bashrc.d/terraform
 popd || exit 1
