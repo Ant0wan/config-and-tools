@@ -34,10 +34,6 @@ function tfcheck() {
 
 alias fmt='terraform fmt -recursive'
 alias t='terraform'
-alias tf='tf-autoplan'
-alias tfi='tf-autoplan --mode interactive apply .'
-alias tfid='tf-autoplan --mode interactive destroy .'
-alias tfip='tf-autoplan --mode interactive plan .'
 alias tflock='terraform providers lock -platform=linux_amd64 -platform=linux_arm64 -platform=darwin_amd64 -platform=windows_amd64 -platform=darwin_arm64'
 alias tg='terraform graph  -draw-cycles -type=apply'
 alias ti='terraform init'
