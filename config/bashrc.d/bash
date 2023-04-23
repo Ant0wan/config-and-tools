@@ -7,8 +7,9 @@ alias g='grep -arn --exclude-dir=.terraform*'
 alias ls='ls --color=always'
 alias vi='vim'
 
+GPG_TTY="$(tty)"
+export GPG_TTY
 export EDITOR='/usr/bin/vim'
-export GPG_TTY="$(tty)"
 export HISTTIMEFORMAT="%F %T "
 export HISTCONTROL=ignorespace:ignoredups:erasedups
 export HISTSIZE=100000
