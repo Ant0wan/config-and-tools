@@ -1,0 +1,3 @@
+# .bashrc
+
+source <(terraform-docs completion $(basename $SHELL))
