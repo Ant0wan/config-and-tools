@@ -41,5 +41,5 @@ alias tv='terraform validate'
 alias twl='terraform workspace list'
 alias tws='terraform workspace select'
 
-complete -d -f -C /usr/local/bin/terraform terraform
+complete -d -f -C $(which terraform) terraform
 
