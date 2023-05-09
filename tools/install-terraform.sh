@@ -11,6 +11,7 @@ unzip "$BIN"
 sudo install terraform /usr/local/bin/
 rm -rf "$BIN" terraform
 
+mkdir -p "$HOME/.terraform.d/plugin-cache"
 mkdir -p "$HOME/.bashrc.d/"
 pushd "$(git rev-parse --show-toplevel)" || exit 1
 cp config/bashrc.d/terraform "$HOME"/.bashrc.d/terraform
