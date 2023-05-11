@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 set -o errexit
 
 scversion="stable" # or "v0.4.7", or "latest"
@@ -8,4 +8,3 @@ wget -qO- "https://github.com/koalaman/shellcheck/releases/download/${scversion?
 cp "shellcheck-${scversion}/shellcheck" /usr/local/bin/
 chmod +x /usr/local/bin/shellcheck
 rm -rf "shellcheck-${scversion}"
-
