@@ -1,4 +1,3 @@
 #!/bin/sh
 set -o errexit
-wget https://github.com/Ant0wan/tfexe/releases/latest/download/tfexe -O /usr/local/bin/tfexe
-chmod +x /usr/local/bin/tfexe
+wget -q -O -  https://raw.githubusercontent.com/Ant0wan/tfexe/master/install.sh | sh
