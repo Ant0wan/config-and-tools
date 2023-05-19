@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -o errexit
-set -o errtrace
 set -o nounset
-set -o pipefail
 
 if ! [ -x "$(command -v jq)" ]; then
 	echo "jq is not installed" >&2
@@ -37,7 +35,7 @@ bw logout
 BW_SESSION=$(bw login --raw)
 export BW_SESSION
 
-function _jq() {
+_jq() {
 	echo "${key}" | base64 --decode | jq -r "${1}"
 }
 mkdir -p "$HOME"/.ssh
