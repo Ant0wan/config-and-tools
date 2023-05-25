@@ -15,9 +15,6 @@ jobs:
           - dir: ./bashrc.d
             name: Bashrc files
             options: -s sh -e SC214
-          - dir: .
-            name: Init script
-            options: -s sh
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -27,4 +24,10 @@ jobs:
           scandir: ${{ matrix.dir }}
         env:
           SHELLCHECK_OPTS: ${{ matrix.options }}
+      - name: Init script
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: ./init.sh
+        env:
+          SHELLCHECK_OPTS: -s sh
 
