@@ -10,19 +10,15 @@ jobs:
       matrix:
         include:
           - dir: ./tools
-            name: Install scripts
             options: -s bash -e SC1090
           - dir: ./bashrc.d
-            name: Bashrc files
             options: -s sh -e SC214
           - dir: ./init.sh
-            name: Init script
             options: -s sh
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: ${{ matrix.name }}
-        uses: ludeeus/action-shellcheck@master
+      - uses: ludeeus/action-shellcheck@master
         with:
           scandir: ${{ matrix.dir }}
         env:
