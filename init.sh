@@ -18,7 +18,6 @@ sudo chmod +x /usr/local/bin/oh-my-posh
 oh-my-posh font install Meslo
 oh-my-posh get shell
 wget "${githubsource}theme.omp.json" -O "$HOME"/.theme.omp.json
-wget "${githubsource}bashrc" -O "$HOME"/.bashrc
 mkdir -p "$HOME"/.bashrc.d/
 
 wget "${githubsource}gitconfig" -O "$HOME"/.gitconfig
