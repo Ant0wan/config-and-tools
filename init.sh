@@ -7,7 +7,7 @@ if ! [ -x "$(command -v jq)" ]; then
 	exit 1
 fi
 
-githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/master/config/"
+githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/config/"
 
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm -y
 sudo dnf update -y
@@ -18,7 +18,6 @@ sudo chmod +x /usr/local/bin/oh-my-posh
 oh-my-posh font install Meslo
 oh-my-posh get shell
 wget "${githubsource}theme.omp.json" -O "$HOME"/.theme.omp.json
-wget "${githubsource}bashrc" -O "$HOME"/.bashrc
 mkdir -p "$HOME"/.bashrc.d/
 
 wget "${githubsource}gitconfig" -O "$HOME"/.gitconfig
@@ -56,10 +55,11 @@ sudo systemctl restart sshd
 
 for key in $(bw get item gpg | jq -r '.fields[] | @base64'); do
 	_jq '.value' | base64 --decode >"$(_jq '.name')"
-	export SIGNING_KEY+=("$(gpg --import "$(_jq '.name')" |& head -n 1 | grep -Eo '[0-9A-Z]{16}+')")
+	SIGNING_KEY="${SIGNING_KEY:+$SIGNING_KEY }$(gpg --import "$(_jq '.name')" 2>&1 | head -n 1 | grep -Eo '[0-9A-Z]{16}+')"
+	export SIGNING_KEY
 	rm "$(_jq '.name')"
 done
-sed -i "s/{{signing_key}}/${SIGNING_KEY[0]}/g" "$HOME"/.gitconfig
+sed -i "s/{{signing_key}}/${SIGNING_KEY%% *}/g" "$HOME"/.gitconfig
 
 rm -rf "$HOME"/.vim
 git clone git@github.com:Ant0wan/vim-plugin.git "$HOME"/.vim/

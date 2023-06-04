@@ -1,13 +1,25 @@
+name: Shellcheck
+
 on: push
 
-name: "Shellcheck"
 permissions: {}
 
 jobs:
   shellcheck:
-    name: Shellcheck
+    strategy:
+      matrix:
+        include:
+          - dir: ./tools
+            options: -s bash -e SC1090
+          - dir: ./bashrc.d
+            options: -s sh -e SC214
+          - dir: ./init.sh
+            options: -s sh
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Run ShellCheck
-        uses: ludeeus/action-shellcheck@master
+      - uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: ${{ matrix.dir }}
+        env:
+          SHELLCHECK_OPTS: ${{ matrix.options }}
