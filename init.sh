@@ -7,7 +7,7 @@ if ! [ -x "$(command -v jq)" ]; then
 	exit 1
 fi
 
-githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/master/config/"
+githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/config/"
 
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm -y
 sudo dnf update -y
