@@ -55,10 +55,10 @@ sudo systemctl restart sshd
 
 for key in $(bw get item gpg | jq -r '.fields[] | @base64'); do
 	_jq '.value' | base64 --decode >"$(_jq '.name')"
-	SIGNING_KEY="${SIGNING_KEY:+$SIGNING_KEY }$(gpg --import "$(_jq '.name')" 2>&1 | head -n 1 | grep -Eo '[0-9A-Z]{16}+')" ## this add an empty before it good
+	SIGNING_KEY="${SIGNING_KEY:+$SIGNING_KEY }$(gpg --import "$(_jq '.name')" 2>&1 | head -n 1 | grep -Eo '[0-9A-Z]{16}+')"
+	export SIGNING_KEY
 	rm "$(_jq '.name')"
 done
-export SIGNING_KEY
 sed -i "s/{{signing_key}}/${SIGNING_KEY%% *}/g" "$HOME"/.gitconfig
 
 rm -rf "$HOME"/.vim
