@@ -32,6 +32,23 @@ function tfcheck() {
     tflint --format=compact .
 }
 
+
+update_providers() {
+	files="$(grep required_providers -nR | awk -F ':' '{ print $1}' | uniq | grep -E '.[.]tf')"
+	for file in $files
+	do
+		providers="$(hclq get terraform.required_providers.*.source --in "${file}" | awk '{ gsub(/[\[\]"]/, ""); gsub(/,/, " "); print }')"
+		for each in $providers
+		do
+			provider="$(echo "$each" | awk -F '/' '{print $2}')"
+			latest="$(curl "https://registry.terraform.io/v1/providers/${each}" 2>/dev/null | jq .version -r)"
+			echo "${provider} = ${latest}"
+			hclq set terraform.required_providers."${provider}".version "${latest}" --in "${file}" --out "${file}"
+		done
+	done
+	unset files providers provider latest
+}
+
 alias fmt='terraform fmt -recursive'
 alias tflock='terraform providers lock -platform=linux_amd64 -platform=linux_arm64 -platform=darwin_amd64 -platform=windows_amd64 -platform=darwin_arm64'
 alias ti='terraform init'
