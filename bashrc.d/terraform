@@ -14,17 +14,6 @@ function clean_tf_ws() {
 	done
 }
 
-function tf_fmt_ending_eol() {
-    for var in "$@"
-    do
-        if [[ -s "$var" ]]; then
-            if [[ -n "$(tail -c 1 "$var")" ]]; then
-               gsed -i -e '$a\' $var
-            fi
-        fi
-    done
-}
-
 function tfcheck() {
     terraform validate
     terraform fmt -recursive
@@ -35,10 +24,7 @@ function tfcheck() {
 alias fmt='terraform fmt -recursive'
 alias tflock='terraform providers lock -platform=linux_amd64 -platform=linux_arm64 -platform=darwin_amd64 -platform=windows_amd64 -platform=darwin_arm64'
 alias ti='terraform init'
-alias twl='terraform workspace list'
-alias tws='terraform workspace select'
 
 complete -d -f -C $(which terraform) terraform
 
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
-
