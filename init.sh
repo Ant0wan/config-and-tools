@@ -7,10 +7,12 @@ if ! [ -x "$(command -v jq)" ]; then
 	exit 1
 fi
 
-
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm -y
 sudo dnf update -y
 sudo dnf install git vim ffmpeg-libs -y
+
+
+
 
 BW_SESSION=$(bw login --raw)
 export BW_SESSION
@@ -45,4 +47,3 @@ sed -i "s/{{signing_key}}/${SIGNING_KEY%% *}/g" "$HOME"/.gitconfig
 rm -rf "$HOME"/.vim
 git clone git@github.com:Ant0wan/vim-plugin.git "$HOME"/.vim/
 
-reboot
