@@ -2,14 +2,9 @@
 set -o errexit
 set -o nounset
 
-if ! [ -x "$(command -v jq)" ]; then
-	echo "jq is not installed" >&2
-	exit 1
-fi
-
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm -y
 sudo dnf update -y
-sudo dnf install git vim ffmpeg-libs -y
+sudo dnf install ffmpeg-libs -y
 
 
 
@@ -43,7 +38,3 @@ for key in $(bw get item gpg | jq -r '.fields[] | @base64'); do
 	rm "$(_jq '.name')"
 done
 sed -i "s/{{signing_key}}/${SIGNING_KEY%% *}/g" "$HOME"/.gitconfig
-
-rm -rf "$HOME"/.vim
-git clone git@github.com:Ant0wan/vim-plugin.git "$HOME"/.vim/
-
