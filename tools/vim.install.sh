@@ -1,7 +1,7 @@
 #!/bin/sh
 set -o errexit
 set -o nounset
-VERSION="8.2.3451"
+VESRION=$(curl -s https://api.github.com/repos/vim/vim/git/refs/tags | jq -r '.[].ref' | awk -F'/' '{print $3}' | sort -V | tail -1 | sed 's/^v//')
 curl -LO https://github.com/vim/vim/archive/refs/tags/v${VERSION}.tar.gz
 tar -xzvf v${VERSION}.tar.gz
 cd vim-${VERSION}/
