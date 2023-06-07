@@ -23,6 +23,6 @@ set -o errexit
 		selection=$(ls tools/ | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 for i in $selection
 do
-	echo $i
+	echo $i.install.sh
 done
 #rm bin/ -rf
