@@ -1,10 +1,10 @@
 #!/bin/sh
 set -o errexit
 set -o nounset
-VERSION="v8.2.3451"
-curl -LO https://github.com/vim/vim/archive/refs/tags/${VERSION}.tar.gz
-tar -xzvf ${VERSION}.tar.gz
-cd ${VERSION}/
+VERSION="8.2.3451"
+curl -LO https://github.com/vim/vim/archive/refs/tags/v${VERSION}.tar.gz
+tar -xzvf v${VERSION}.tar.gz
+cd vim-${VERSION}/
 ./configure --prefix=/usr/local
 make
 sudo make install
