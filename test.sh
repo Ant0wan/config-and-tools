@@ -20,9 +20,16 @@ set -o errexit
 		#echo $folder
 		#cp ${folder}/bat bin/bat
 		#rm $folder $target -rf
-		selection=$(ls tools/ | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
+selection=$(ls tools/ | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
+		#rm bin/ -rf
+		#mkdir -p $HOME/.bashrc.d/
 for i in $selection
 do
+	# install tool
 	echo $i.install.sh
+	# copy config file
+	if [ -e bashrc.d/$i ]; then
+		echo "cp bashrc.d/$i $HOME/.bashrc.d/$i"
+	fi
+
 done
-#rm bin/ -rf
