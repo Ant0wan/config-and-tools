@@ -1,5 +1,6 @@
 #!/bin/sh
 set -o errexit
+set -o nounset
 curl https://pyenv.run | bash
 . "$HOME/.$(basename "$SHELL")rc"
 #sudo apt update
