@@ -12,9 +12,6 @@ sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-releas
 sudo dnf update -y
 sudo dnf install git vim ffmpeg-libs -y
 
-wget "${githubsource}gitconfig" -O "$HOME"/.gitconfig
-wget "${githubsource}gitignore" -O "$HOME"/.gitignore
-
 wget 'https://vault.bitwarden.com/download/?app=cli&platform=linux' -O bw-cli.zip
 unzip bw-cli.zip
 rm bw-cli.zip
