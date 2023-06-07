@@ -31,5 +31,4 @@ do
 	if [ -e bashrc.d/$i ]; then
 		echo "cp bashrc.d/$i $HOME/.bashrc.d/$i"
 	fi
-
 done
