@@ -26,16 +26,12 @@ selection=$(ls tools/ | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right
 		#mkdir -p $HOME/.bashrc.d/
 for i in $selection
 do
-	# install tool
-	echo $i.install.sh
-	# copy config file
+	sh "tools/$i.install.sh"
 	if [ -e bashrc.d/$i ]; then
-		echo "cp bashrc.d/$i $HOME/.bashrc.d/$i"
+		cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
 	fi
 done
-# Post install
 if test -n "$BW_SESSION"; then
     bw logout
     unset BW_SESSION
 fi
-
