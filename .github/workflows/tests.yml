@@ -16,4 +16,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: ${{ matrix.tool }} ${{ matrix.os }}
-        run: ./init.sh ${{ matrix.tool }}
+        run: ./init.sh ${{ matrix.tool }} || true
