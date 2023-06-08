@@ -21,13 +21,13 @@ set -o errexit
 		#echo $folder
 		#cp ${folder}/bat bin/bat
 		#rm $folder $target -rf
-selection=$(ls tools/ | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
+selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 		#rm bin/ -rf
 		#mkdir -p $HOME/.bashrc.d/
 for i in $selection
 do
 	sh "tools/$i.install.sh"
-	if [ -e bashrc.d/$i ]; then
+	if test -e "bashrc.d/$i"; then
 		cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
 	fi
 done
