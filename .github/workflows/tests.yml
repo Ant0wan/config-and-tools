@@ -1,0 +1,17 @@
+name: Tests
+
+on: [push]
+
+permissions: {}
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, centos-latest]
+        tool: [ansible, aws, bash, bitwarden, c, git, hadolint, hclq, jq, kubectx, kubens, kustomize, python, rust, shellcheck, ssh, terraformdocs, terraform, tfam, tfexe, tflint, tfswitch, vault, vim, yq]
+    steps:
+      - uses: actions/checkout@v3
+      - name: ${{ matrix.tool }} ${{ matrix.os }}
+        run: ./init.sh ${{ matrix.tool }}
