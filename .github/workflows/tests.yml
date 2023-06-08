@@ -25,7 +25,7 @@ jobs:
           - kubectx
           - kubens
           - kustomize
-            #          - python
+          - python
           - rust
           - shellcheck
             #          - ssh
@@ -36,7 +36,7 @@ jobs:
           - tflint
           - tfswitch
           - vault
-          - vim
+            #- vim
           - yq
     steps:
       - uses: actions/checkout@v3
