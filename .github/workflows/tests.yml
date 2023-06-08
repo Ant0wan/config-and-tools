@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 15
     strategy:
       matrix:
-        os: [ubuntu-latest, centos-latest]
+        os: [ubuntu-latest, macos-latest]
         tool: [ansible, aws, bash, bitwarden, c, git, hadolint, hclq, jq, kubectx, kubens, kustomize, python, rust, shellcheck, ssh, terraformdocs, terraform, tfam, tfexe, tflint, tfswitch, vault, vim, yq]
     steps:
       - run: echo "JOB_NAME=${{ matrix.tool }} on ${{ matrix.os }}" >> $GITHUB_ENV
