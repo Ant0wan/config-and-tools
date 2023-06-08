@@ -33,11 +33,11 @@ fi
 
 for i in $selection; do
 	if test -e "tools/$i.install.sh"; then
-		echo sudo sh "tools/$i.install.sh"
+		sudo sh "tools/$i.install.sh"
 	fi
 	if test -e "bashrc.d/$i"; then
 		mkdir -p "$HOME/.bashrc.d/"
-		echo cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
+		cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
 	fi
 done
 
