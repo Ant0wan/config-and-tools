@@ -33,7 +33,7 @@ fi
 
 for i in $selection; do
 	if test -e "tools/$i.install.sh"; then
-		sudo sh "tools/$i.install.sh"
+		sh "tools/$i.install.sh"
 	fi
 	if test -e "bashrc.d/$i"; then
 		mkdir -p "$HOME/.bashrc.d/"
