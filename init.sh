@@ -30,10 +30,8 @@ if test $# -eq 0; then
 else
 	selection="$(echo $@ | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 fi
-echo ${selection}
 
-for i in $selection
-do
+for i in $selection; do
 	if test -e "tools/$i.install.sh"; then
 		echo sudo sh "tools/$i.install.sh"
 	fi
@@ -42,6 +40,7 @@ do
 		echo cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
 	fi
 done
+
 if test -n "$BW_SESSION"; then
     bw logout
     unset BW_SESSION
