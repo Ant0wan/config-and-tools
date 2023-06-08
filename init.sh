@@ -27,10 +27,9 @@ _prompt() {
 
 
 if test $# -eq 0; then
-	echo no command line
-
+	_prompt
 else
-	selection="$@"
+	selection="$(echo $@ | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 fi
 echo ${selection}
 exit
