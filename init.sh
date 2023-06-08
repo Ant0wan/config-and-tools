@@ -8,9 +8,8 @@ pkgs=$(curl https://api.github.com/repos/sharkdp/bat/releases/${id}/assets | jq 
 kernel=$(uname -s | awk '{print tolower($0)}')
 arch=$(uname -p)
 list=$(echo "$pkgs" | grep "$kernel" | grep "$arch")
-echo list=$list
 target=""
-if echo "$list" | grep -q "musl"; then
+if echo "$list" | grep -q "musl" 2>&1 >/dev/null; then
 	target=$(echo "$list" | grep "musl")
 else
 	target=$(echo "$list" | grep "gnu")
@@ -18,11 +17,10 @@ fi
 wget https://github.com/sharkdp/bat/releases/latest/download/$target
 tar -xvf $target
 folder="$(echo $target | awk -F '.tar.gz' '{ print $1 }')"
-echo $folder
 cp ${folder}/bat bin/bat
 rm $folder $target -rf
 selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
-#rm bin/ -rf
+rm bin/ -rf
 mkdir -p $HOME/.bashrc.d/
 for i in $selection
 do
