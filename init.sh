@@ -1,40 +1,41 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -o errexit
-set -o nounset
-
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm -y
-sudo dnf update -y
-sudo dnf install ffmpeg-libs -y
-
-
-
-
-BW_SESSION=$(bw login --raw)
-export BW_SESSION
-
-_jq() {
-	echo "${key}" | base64 --decode | jq -r "${1}"
-}
-mkdir -p "$HOME"/.ssh
-eval "$(ssh-agent -s)"
-for key in $(bw get item ssh | jq -r '.fields[] | @base64'); do
-	_jq '.value' | base64 --decode >"$HOME"/.ssh/"$(_jq '.name')"
-	case "$(_jq '.name')" in
-	*".pub")
-		chmod 0644 "$HOME"/.ssh/"$(_jq '.name')"
-		;;
-	*)
-		chmod 0600 "$HOME"/.ssh/"$(_jq '.name')"
-		ssh-add "$HOME"/.ssh/"$(_jq '.name')"
-		;;
-	esac
+		#wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
+		#info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
+		#tag=$(echo $info | awk -F ' ' '{ print $1 }')
+		#id=$(echo $info | awk -F ' ' '{ print $2 }')
+		#pkgs=$(curl https://api.github.com/repos/sharkdp/bat/releases/${id}/assets | jq .[].name -r)
+		#kernel=$(uname -s | awk '{print tolower($0)}')
+		#arch=$(uname -p)
+		#filtered_list=$(echo "$pkgs" | grep "$kernel" | grep "$arch")
+		#echo list=$filtered_list
+		#target=""
+		#if echo "$filtered_list" | grep -q "musl"; then
+		#  target=$(echo "$filtered_list" | grep "musl")
+		#else
+		#  target=$(echo "$filtered_list" | grep "gnu")
+		#fi
+		#wget https://github.com/sharkdp/bat/releases/latest/download/$target
+		#tar -xvf $target
+		#folder="$(echo $target | awk -F '.tar.gz' '{ print $1 }')"
+		#echo $folder
+		#cp ${folder}/bat bin/bat
+		#rm $folder $target -rf
+selection=$(ls tools/ | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
+		#rm bin/ -rf
+		#mkdir -p $HOME/.bashrc.d/
+for i in $selection
+do
+	# install tool
+	echo $i.install.sh
+	# copy config file
+	if [ -e bashrc.d/$i ]; then
+		echo "cp bashrc.d/$i $HOME/.bashrc.d/$i"
+	fi
 done
-sudo systemctl restart sshd
+# Post install
+if test -n "$BW_SESSION"; then
+    bw logout
+    unset BW_SESSION
+fi
 
-for key in $(bw get item gpg | jq -r '.fields[] | @base64'); do
-	_jq '.value' | base64 --decode >"$(_jq '.name')"
-	SIGNING_KEY="${SIGNING_KEY:+$SIGNING_KEY }$(gpg --import "$(_jq '.name')" 2>&1 | head -n 1 | grep -Eo '[0-9A-Z]{16}+')"
-	export SIGNING_KEY
-	rm "$(_jq '.name')"
-done
-sed -i "s/{{signing_key}}/${SIGNING_KEY%% *}/g" "$HOME"/.gitconfig
