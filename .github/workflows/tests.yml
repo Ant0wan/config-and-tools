@@ -12,7 +12,32 @@ jobs:
     strategy:
       matrix:
         #os: [ubuntu-latest, macos-latest]
-        tool: [ansible, aws, bash, bitwarden, c, git, hadolint, hclq, jq, kubectx, kubens, kustomize, python, rust, shellcheck, ssh, terraformdocs, terraform, tfam, tfexe, tflint, tfswitch, vault, vim, yq]
+        tool:
+          - ansible
+          - aws
+            #          - bash
+            #          - bitwarden
+          - c
+            #          - git
+          - hadolint
+          - hclq
+          - jq
+          - kubectx
+          - kubens
+          - kustomize
+            #          - python
+          - rust
+          - shellcheck
+            #          - ssh
+          - terraformdocs
+          - terraform
+          - tfam
+          - tfexe
+          - tflint
+          - tfswitch
+          - vault
+          - vim
+          - yq
     steps:
       - uses: actions/checkout@v3
         #- name: ${{ matrix.tool }} ${{ matrix.os }}
