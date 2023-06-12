@@ -1,11 +1,7 @@
 #!/bin/sh
 set -o errexit
-set -x
-if [ -z "$SHELL" ]; then
-	export SHELL="/bin/bash"
-fi
+set -o nounset
 curl https://pyenv.run | bash
-which pyenv
 . "$HOME/.$(basename "$SHELL")rc"
 #sudo apt update
 #sudo apt install \
@@ -26,7 +22,6 @@ which pyenv
 #    wget \
 #    xz-utils \
 #    zlib1g-dev
-which pyenv
 pyenv install 3.11
 pyenv shell 3.11
 pyenv local 3.11
