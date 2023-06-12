@@ -1,10 +1,9 @@
 #!/bin/sh
 set -o errexit
-set -o nounset
-curl https://pyenv.run | bash
 if [ -z "$SHELL" ]; then
-	SHELL="/bin/bash"
+	export SHELL="/bin/bash"
 fi
+curl https://pyenv.run | bash
 . "$HOME/.$(basename "$SHELL")rc"
 #sudo apt update
 #sudo apt install \
