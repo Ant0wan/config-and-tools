@@ -1,5 +1,6 @@
 #!/bin/sh
 set -o errexit
+set -x
 
 _prompt() {
 	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
@@ -22,7 +23,7 @@ _prompt() {
 	cp ${folder}/bat bin/bat
 	rm $folder $target -rf
 	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
-	rm bin/ -rf
+	#rm bin/ -rf
 }
 
 if test $# -eq 0; then
