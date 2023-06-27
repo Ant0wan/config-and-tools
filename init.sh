@@ -1,7 +1,5 @@
 #!/bin/sh
 set -o errexit
-set -x
-
 _prompt() {
 	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
 	info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
@@ -9,7 +7,7 @@ _prompt() {
 	id=$(echo $info | awk -F ' ' '{ print $2 }')
 	pkgs=$(curl https://api.github.com/repos/sharkdp/bat/releases/${id}/assets | jq .[].name -r)
 	kernel=$(uname -s | awk '{print tolower($0)}')
-	arch=$(uname -p)
+	arch=$(uname -m)
 	list=$(echo "$pkgs" | grep "$kernel" | grep "$arch")
 	target=""
 	if echo "$list" | grep -q "musl" 2>&1 >/dev/null; then
@@ -23,7 +21,7 @@ _prompt() {
 	cp ${folder}/bat bin/bat
 	rm $folder $target -rf
 	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
-	#rm bin/ -rf
+#	rm bin/ -rf
 }
 
 if test $# -eq 0; then
