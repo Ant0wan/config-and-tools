@@ -1,4 +1,16 @@
 #!/bin/sh
+# Ensure that the required dependencies are installed before proceeding with the installation
+if ! command -v openssl &>/dev/null; then
+    echo "OpenSSL is required. Please install it first."
+    script_dir=$(dirname "$0")
+    sh "$script_dir/openssl.install.sh"
+    exit 1
+fi
+
+# Rest of the script to install Git
+exit 1
+
+
 set -o errexit
 VERSION=$(curl -s https://api.github.com/repos/git/git/git/refs/tags | jq -r '.[].ref' | awk -F'/' '{print $3}' | sort -V | tail -1 | sed 's/^v//')
 curl -L "https://github.com/git/git/archive/v${VERSION}.tar.gz" -o git.tar.gz
