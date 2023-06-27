@@ -1,6 +1,5 @@
 #!/bin/sh
 set -o errexit
-set -o nounset
 if test -z "$BW_SESSION"; then
     BW_SESSION=$(bw login --raw)
     export BW_SESSION
@@ -23,3 +22,4 @@ for key in $(bw get item ssh | jq -r '.fields[] | @base64'); do
 	esac
 done
 sudo systemctl restart sshd
+bw logout

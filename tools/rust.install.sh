@@ -1,7 +1,7 @@
 #!/bin/sh
 set -o errexit
 script_dir=$(dirname "$0")
-. "$script_dir/openssl.install.sh"
+. "$script_dir/essentials.install.sh"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y --no-modify-path
 source "$HOME/.cargo/env"
 "$(which cargo)" install cargo-watch
