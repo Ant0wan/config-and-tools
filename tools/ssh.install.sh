@@ -1,5 +1,9 @@
 #!/bin/sh
 set -o errexit
+if test -e "$HOME"/.ssh/github; then
+	echo "SSH already configure."
+	exit 0
+fi
 if test -z "$BW_SESSION"; then
     BW_SESSION=$(bw login --raw)
     export BW_SESSION
