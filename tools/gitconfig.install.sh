@@ -1,18 +1,20 @@
 #!/bin/sh
 if ! command -v git &>/dev/null; then
-    echo "Git is required. Please install it first."
-    exit 1
+	echo "Git is required."
+	script_dir=$(dirname "$0")
+	. "$script_dir/git.install.sh"
 fi
 if ! command -v bw &>/dev/null; then
-    echo "BitWarden CLI is required. Please install it first."
-    exit 1
+	echo "BitWarden CLI is required."
+	script_dir=$(dirname "$0")
+	. "$script_dir/bitwarden.install.sh"
 fi
 githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/config/"
 wget "${githubsource}gitconfig" -O "$HOME"/.gitconfig
 wget "${githubsource}gitignore" -O "$HOME"/.gitignore
 if test-z "$BW_SESSION"; then
-    BW_SESSION=$(bw login --raw)
-    export BW_SESSION
+	BW_SESSION=$(bw login --raw)
+	export BW_SESSION
 fi
 _jq() {
 	echo "${key}" | base64 --decode | jq -r "${1}"
