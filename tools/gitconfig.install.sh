@@ -9,6 +9,10 @@ if ! command -v bw &>/dev/null; then
 	script_dir=$(dirname "$0")
 	. "$script_dir/bitwarden.install.sh"
 fi
+if test -e "$HOME"/.gitconfig; then
+	echo "Git already configured."
+	exit 0
+fi
 githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/config/"
 wget "${githubsource}gitconfig" -O "$HOME"/.gitconfig
 wget "${githubsource}gitignore" -O "$HOME"/.gitignore
