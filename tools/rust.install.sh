@@ -1,7 +1,8 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -o errexit
+script_dir=$(dirname "$0")
+. "$script_dir/essentials.install.sh"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile complete -y --no-modify-path
-"$(which cargo)" install cargo-watch cargo-audit
-pushd "$(git rev-parse --show-toplevel)" || exit 1
-cp config/bashrc.d/rust "$HOME"/.bashrc.d/rust
-popd || exit 1
+source "$HOME/.cargo/env"
+"$(which cargo)" install cargo-watch
+"$(which cargo)" install cargo-audit

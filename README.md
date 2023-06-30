@@ -13,6 +13,8 @@
 ```shell
 curl abarthel.dev/init.sh | bash
 ```
+
+
 <!---
 ```shell
 sh -c "$(wget https://abarthel.dev/init.sh -O -)"

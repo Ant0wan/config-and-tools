@@ -1,67 +1,46 @@
-#!/usr/bin/env bash
+#!/bin/sh
 set -o errexit
-set -o nounset
+_prompt() {
+	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
+	info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
+	tag=$(echo $info | awk -F ' ' '{ print $1 }')
+	id=$(echo $info | awk -F ' ' '{ print $2 }')
+	pkgs=$(curl https://api.github.com/repos/sharkdp/bat/releases/${id}/assets | jq .[].name -r)
+	kernel=$(uname -s | awk '{print tolower($0)}')
+	arch=$(uname -m)
+	list=$(echo "$pkgs" | grep "$kernel" | grep "$arch")
+	target=""
+	if echo "$list" | grep -q "musl" 2>&1 >/dev/null; then
+		target=$(echo "$list" | grep "musl")
+	else
+		target=$(echo "$list" | grep "gnu")
+	fi
+	wget https://github.com/sharkdp/bat/releases/latest/download/$target
+	tar -xvf $target
+	folder="$(echo $target | awk -F '.tar.gz' '{ print $1 }')"
+	cp ${folder}/bat bin/bat
+	rm $folder $target -rf
+	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
+#	rm bin/ -rf
+}
 
-if ! [ -x "$(command -v jq)" ]; then
-	echo "jq is not installed" >&2
-	exit 1
+if test $# -eq 0; then
+	_prompt
+else
+	selection="$(echo $@ | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 fi
 
-githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/config/"
-
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm -y
-sudo dnf update -y
-sudo dnf install git vim ffmpeg-libs -y
-
-sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
-sudo chmod +x /usr/local/bin/oh-my-posh
-oh-my-posh font install Meslo
-oh-my-posh get shell
-wget "${githubsource}theme.omp.json" -O "$HOME"/.theme.omp.json
-mkdir -p "$HOME"/.bashrc.d/
-
-wget "${githubsource}gitconfig" -O "$HOME"/.gitconfig
-wget "${githubsource}gitignore" -O "$HOME"/.gitignore
-
-wget 'https://vault.bitwarden.com/download/?app=cli&platform=linux' -O bw-cli.zip
-unzip bw-cli.zip
-rm bw-cli.zip
-chmod +x bw
-sudo mv bw /usr/local/bin/
-
-bw login --apikey
-bw logout
-BW_SESSION=$(bw login --raw)
-export BW_SESSION
-
-_jq() {
-	echo "${key}" | base64 --decode | jq -r "${1}"
-}
-mkdir -p "$HOME"/.ssh
-eval "$(ssh-agent -s)"
-for key in $(bw get item ssh | jq -r '.fields[] | @base64'); do
-	_jq '.value' | base64 --decode >"$HOME"/.ssh/"$(_jq '.name')"
-	case "$(_jq '.name')" in
-	*".pub")
-		chmod 0644 "$HOME"/.ssh/"$(_jq '.name')"
-		;;
-	*)
-		chmod 0600 "$HOME"/.ssh/"$(_jq '.name')"
-		ssh-add "$HOME"/.ssh/"$(_jq '.name')"
-		;;
-	esac
+for i in $selection; do
+	if test -e "tools/$i.install.sh"; then
+		sh "tools/$i.install.sh"
+	fi
+	if test -e "bashrc.d/$i"; then
+		mkdir -p "$HOME/.bashrc.d/"
+		cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
+	fi
 done
-sudo systemctl restart sshd
 
-for key in $(bw get item gpg | jq -r '.fields[] | @base64'); do
-	_jq '.value' | base64 --decode >"$(_jq '.name')"
-	SIGNING_KEY="${SIGNING_KEY:+$SIGNING_KEY }$(gpg --import "$(_jq '.name')" 2>&1 | head -n 1 | grep -Eo '[0-9A-Z]{16}+')"
-	export SIGNING_KEY
-	rm "$(_jq '.name')"
-done
-sed -i "s/{{signing_key}}/${SIGNING_KEY%% *}/g" "$HOME"/.gitconfig
-
-rm -rf "$HOME"/.vim
-git clone git@github.com:Ant0wan/vim-plugin.git "$HOME"/.vim/
-
-reboot
+if test -n "$BW_SESSION"; then
+    bw logout
+    unset BW_SESSION
+fi

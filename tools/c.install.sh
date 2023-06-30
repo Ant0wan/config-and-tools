@@ -1,6 +1,12 @@
-#!/usr/bin/env bash
-set -o errexit
+#!/bin/sh
+if [ -f /etc/fedora-release ]; then
+	sudo dnf install -y gcc clang make
+elif [ -f /etc/lsb-release ]; then
+	sudo apt-get update
+	sudo apt-get install -y build-essential
+else
+	echo "Unsupported distribution. This script only supports Fedora and Ubuntu."
+	exit 1
+fi
 curl 'https://raw.githubusercontent.com/torvalds/linux/master/.clang-format' -o "$HOME/.clang-format"
-pushd "$(git rev-parse --show-toplevel)" || exit 1
-cp config/bashrc.d/c "$HOME"/.bashrc.d/c
-popd || exit 1
+echo "Development tools have been successfully installed."

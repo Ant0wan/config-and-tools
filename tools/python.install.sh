@@ -1,35 +1,22 @@
-#!/usr/bin/env bash
-set -o errexit
+#!/bin/sh
+VERSION='3.11'
+if /usr/bin/python --version | grep $VERSION; then
+	echo "Python already installed."
+	exit 0
+fi
+script_dir=$(dirname "$0")
+. "$script_dir/essentials.install.sh"
 curl https://pyenv.run | bash
-. "$HOME/.$(basename "$SHELL")rc"
-#sudo apt update
-#sudo apt install \
-#    build-essential \
-#    curl \
-#    libbz2-dev \
-#    libffi-dev \
-#    liblzma-dev \
-#    libncursesw5-dev \
-#    libreadline-dev \
-#    libsqlite3-dev \
-#    libssl-dev \
-#    libxml2-dev \
-#    libxmlsec1-dev \
-#    llvm \
-#    make \
-#    tk-dev \
-#    wget \
-#    xz-utils \
-#    zlib1g-dev
-pyenv install 3.11
-pyenv shell 3.11
-pyenv local 3.11
-pyenv global 3.11
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+pyenv install $VERSION
+pyenv shell $VERSION
+#pyenv local $VERSION
+pyenv global $VERSION
 python -m ensurepip --upgrade
 pip install autopep8
 pip install pycodestyle
-pip config --global set global.require-virtualenv True
+#pip config --global set global.require-virtualenv True
 pip config debug
-pushd "$(git rev-parse --show-toplevel)" || exit 1
-cp config/bashrc.d/python "$HOME"/.bashrc.d/python
-popd || exit 1
+echo "Python have been successfully installed."
