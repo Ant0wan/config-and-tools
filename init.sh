@@ -57,6 +57,7 @@ if [ $INGIT -eq 0 ]; then
 else
 	for i in $selection; do
 		echo $i
+		wget -O - "https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/tools/$i.install.sh" | sh
 	done
 fi
 
