@@ -1,7 +1,7 @@
 #!/bin/sh
 set -o errexit
 _isgit() {
-	if git rev-parse --is-inside-work-tree 2>&1 > /dev/null; then
+	if git rev-parse --is-inside-work-tree 2&1> /dev/null; then
 		INGIT=1
 	else
 		INGIT=0
@@ -44,7 +44,7 @@ else
 	selection="$(echo $@ | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 fi
 
-if [ $INGIT -eq 1 ]; then
+if [ $INGIT -eq 0 ]; then
 	for i in $selection; do
 		if test -e "tools/$i.install.sh"; then
 			sh "tools/$i.install.sh"
