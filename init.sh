@@ -30,6 +30,7 @@ _prompt() {
 	rm $folder $target -rf
 	# Selection of files
 	if [ $INGIT -eq 1 ]; then
+		# should get all files in a tmp dir
 		selection=$(curl -s https://api.github.com/repos/Ant0wan/config-and-tools/contents/tools | jq -r '.[].name' | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 		bashrcs=$(curl -s https://api.github.com/repos/Ant0wan/config-and-tools/contents/bashrc.d | jq -r '.[].name')
 	else
