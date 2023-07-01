@@ -31,6 +31,7 @@ _prompt() {
 	# Selection of files
 	if [ $INGIT -eq 1 ]; then
 		selection=$(curl -s https://api.github.com/repos/Ant0wan/config-and-tools/contents/tools | jq -r '.[].name' | awk -F '.' '{ print $1 }')
+		bashrcs=$(curl -s https://api.github.com/repos/Ant0wan/config-and-tools/contents/bashrc.d | jq -r '.[].name')
 	else
 		selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 	fi
@@ -58,6 +59,13 @@ else
 	for i in $selection; do
 		echo $i
 		wget -O - "https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/tools/$i.install.sh" | sh
+		for rc in "${bashrcs[@]}"; do
+			case "$rc" in
+				"$i")
+					echo "$rc"
+				;;
+			esac
+		done
 	done
 fi
 
