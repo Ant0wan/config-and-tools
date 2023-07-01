@@ -1,5 +1,13 @@
 #!/bin/sh
 set -o errexit
+_isgit() {
+	if git rev-parse --is-inside-work-tree 2>&1 > /dev/null; then
+		INGIT=1
+	else
+		INGIT=0
+	fi
+}
+
 _prompt() {
 	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
 	info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
@@ -20,10 +28,16 @@ _prompt() {
 	folder="$(echo $target | awk -F '.tar.gz' '{ print $1 }')"
 	cp ${folder}/bat bin/bat
 	rm $folder $target -rf
-	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
+	# Selection of files
+	if [ $INGIT -eq 1 ]; then
+		selection=$(curl -s https://api.github.com/repos/Ant0wan/config-and-tools/contents/tools | jq -r '.[].name' | awk -F '.' '{ print $1 }')
+	else
+		selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
+	fi
 #	rm bin/ -rf
 }
 
+_isgit
 if test $# -eq 0; then
 	_prompt
 else
