@@ -44,15 +44,21 @@ else
 	selection="$(echo $@ | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 fi
 
-for i in $selection; do
-	if test -e "tools/$i.install.sh"; then
-		sh "tools/$i.install.sh"
-	fi
-	if test -e "bashrc.d/$i"; then
-		mkdir -p "$HOME/.bashrc.d/"
-		cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
-	fi
-done
+if [ $INGIT -eq 1 ]; then
+	for i in $selection; do
+		if test -e "tools/$i.install.sh"; then
+			sh "tools/$i.install.sh"
+		fi
+		if test -e "bashrc.d/$i"; then
+			mkdir -p "$HOME/.bashrc.d/"
+			cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
+		fi
+	done
+else
+	for i in $selection; do
+		echo $i
+	done
+fi
 
 if test -n "$BW_SESSION"; then
     bw logout
