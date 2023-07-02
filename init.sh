@@ -1,15 +1,5 @@
 #!/bin/sh
 set -o errexit
-_getrepo() {
-	download_path=$(mktemp -d -t tfam.XXXXXXXXXX)
-	cd "$download_path"
-	wget https://github.com/Ant0wan/config-and-tools/archive/refs/heads/main.zip
-	unzip main.zip
-	cd "${download_path}/config-and-tools-main"
-}
-_delrepo() {
-	rm -rf "${download_path}"
-}
 _prompt() {
 	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
 	info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
@@ -31,6 +21,11 @@ _prompt() {
 	cp ${folder}/bat bin/bat
 	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 }
+download_path=$(mktemp -d -t tfam.XXXXXXXXXX)
+cd "$download_path"
+wget https://github.com/Ant0wan/config-and-tools/archive/refs/heads/main.zip
+unzip main.zip
+cd "${download_path}/config-and-tools-main"
 if test $# -eq 0; then
 	_prompt
 else
@@ -45,8 +40,8 @@ for i in $selection; do
 		cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
 	fi
 done
-
 if test -n "$BW_SESSION"; then
     bw logout
     unset BW_SESSION
 fi
+rm -rf "${download_path}"
