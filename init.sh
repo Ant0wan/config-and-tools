@@ -10,7 +10,6 @@ _getrepo() {
 _delrepo() {
 	rm -rf "${download_path}"
 }
-
 _prompt() {
 	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
 	info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
@@ -32,13 +31,11 @@ _prompt() {
 	cp ${folder}/bat bin/bat
 	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 }
-
 if test $# -eq 0; then
 	_prompt
 else
 	selection="$(echo $@ | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 fi
-
 for i in $selection; do
 	if test -e "tools/$i.install.sh"; then
 		sh "tools/$i.install.sh"
