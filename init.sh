@@ -1,11 +1,10 @@
 #!/bin/sh
 set -o errexit
-_isgit() {
-	if git rev-parse --is-inside-work-tree 2&1> /dev/null; then
-		INGIT=1
-	else
-		INGIT=0
-	fi
+_getrepo() {
+	# tmp folder
+	wget https://github.com/Ant0wan/config-and-tools/archive/refs/heads/main.zip
+	# then unzip
+	# then execute init.sh
 }
 
 _prompt() {
@@ -27,49 +26,24 @@ _prompt() {
 	tar -xvf $target
 	folder="$(echo $target | awk -F '.tar.gz' '{ print $1 }')"
 	cp ${folder}/bat bin/bat
-	rm $folder $target -rf
-	# Selection of files
-	if [ $INGIT -eq 1 ]; then
-		# should get all files in a tmp dir
-		selection=$(curl -s https://api.github.com/repos/Ant0wan/config-and-tools/contents/tools | jq -r '.[].name' | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
-		bashrcs=$(curl -s https://api.github.com/repos/Ant0wan/config-and-tools/contents/bashrc.d | jq -r '.[].name')
-	else
-		selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
-	fi
-#	rm bin/ -rf
+	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 }
 
-_isgit
 if test $# -eq 0; then
 	_prompt
 else
 	selection="$(echo $@ | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 fi
 
-if [ $INGIT -eq 0 ]; then
-	for i in $selection; do
-		if test -e "tools/$i.install.sh"; then
-			sh "tools/$i.install.sh"
-		fi
-		if test -e "bashrc.d/$i"; then
-			mkdir -p "$HOME/.bashrc.d/"
-			cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
-		fi
-	done
-else
-	for i in $selection; do
-		echo $i
-		#wget -O - "https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/tools/$i.install.sh" | sh
-		for rc in "${bashrcs[@]}"; do
-			echo "test"
-			case "$rc" in
-				"$i")
-					echo "$rc"
-				;;
-			esac
-		done
-	done
-fi
+for i in $selection; do
+	if test -e "tools/$i.install.sh"; then
+		sh "tools/$i.install.sh"
+	fi
+	if test -e "bashrc.d/$i"; then
+		mkdir -p "$HOME/.bashrc.d/"
+		cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
+	fi
+done
 
 if test -n "$BW_SESSION"; then
     bw logout
