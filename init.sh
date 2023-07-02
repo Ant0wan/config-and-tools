@@ -1,10 +1,14 @@
 #!/bin/sh
 set -o errexit
 _getrepo() {
-	# tmp folder
+	download_path=$(mktemp -d -t tfam.XXXXXXXXXX)
+	cd "$download_path"
 	wget https://github.com/Ant0wan/config-and-tools/archive/refs/heads/main.zip
-	# then unzip
-	# then execute init.sh
+	unzip main.zip
+	cd "${download_path}/config-and-tools-main"
+}
+_delrepo() {
+	rm -rf "${download_path}"
 }
 
 _prompt() {
