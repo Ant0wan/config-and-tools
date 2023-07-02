@@ -11,7 +11,7 @@
 
 ---
 ```shell
-curl abarthel.dev/init.sh | bash
+wget -O - abarthel.dev/init.sh | bash
 ```
 
 
