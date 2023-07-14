@@ -4,6 +4,11 @@ if test -e "$HOME"/.ssh/github; then
 	echo "SSH already configure."
 	exit 0
 fi
+if ! command -v bw &>/dev/null; then
+	echo "BitWarden CLI is required."
+	script_dir=$(dirname "$0")
+	. "$script_dir/bitwarden.install.sh"
+fi
 if test -z "$BW_SESSION"; then
     BW_SESSION=$(bw login --raw)
     export BW_SESSION
