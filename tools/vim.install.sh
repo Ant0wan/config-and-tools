@@ -9,5 +9,5 @@ else
 	exit 1
 fi
 rm -rf "$HOME"/.vim
-git clone git@github.com:Ant0wan/vim-plugin.git "$HOME"/.vim/
+git clone https://github.com/Ant0wan/vim-plugin/ "$HOME"/.vim/
 echo "Vim has been successfully installed."
