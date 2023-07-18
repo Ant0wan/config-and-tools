@@ -17,7 +17,7 @@ if [ -f /etc/fedora-release ]; then
     tk-devel \
     wget \
     zlib-devel
-elif [ -f /etc/lsb-release ]; then
+elif [ -f /etc/lsb-release ] || [ -f /etc/os-release ] ; then
   sudo apt-get update
   sudo apt-get install -y \
     build-essential \

@@ -1,7 +1,7 @@
 #!/bin/sh
 if [ -f /etc/fedora-release ]; then
 	sudo dnf install -y vim
-elif [ -f /etc/lsb-release ]; then
+elif [ -f /etc/lsb-release ] || [ -f /etc/os-release ] ; then
 	sudo apt-get update
 	sudo apt-get install -y vim
 else
