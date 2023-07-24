@@ -16,13 +16,13 @@ if [ -f /etc/os-release ]; then
             # Use dnf if the distribution is Fedora, CentOS, or RHEL
             package_manager="dnf"
             packages="NetworkManager-strongswan NetworkManager-strongswan-gnome strongswan-charon-nm strongswan strongswan-sqlite"
-                  cacerts='/etc/strongswan/ipsec.d/cacerts/cacert.pem'
+            cacerts='/etc/strongswan/ipsec.d/cacerts/cacert.pem'
             ;;
         debian|ubuntu)
             # Use apt-get if the distribution is Debian or Ubuntu
             package_manager="apt-get"
             packages="strongswan strongswan-nm network-manager-strongswan"
-                  cacerts='/etc/ipsec.d/cacerts/cacerts.pem'
+            cacerts='/etc/ipsec.d/cacerts/cacerts.pem'
             ;;
         *)
             # If the distribution is not recognized, exit with an error
