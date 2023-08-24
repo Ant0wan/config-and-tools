@@ -21,7 +21,7 @@ _prompt() {
 	cp ${folder}/bat bin/bat
 	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 }
-download_path=$(mktemp -d -t tfam.XXXXXXXXXX)
+download_path=$(mktemp -d -t config-and-tools.XXXXXXXXXX)
 cd "$download_path"
 wget https://github.com/Ant0wan/config-and-tools/archive/refs/heads/main.zip
 unzip main.zip
