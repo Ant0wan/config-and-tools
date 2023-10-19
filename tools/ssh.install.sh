@@ -4,7 +4,7 @@ if test -e "$HOME"/.ssh/github; then
 	echo "SSH already configure."
 	exit 0
 fi
-if ! command -v bw &>/dev/null; then
+if ! command -v bw >/dev/null 2>&1; then
 	echo "BitWarden CLI is required."
 	script_dir=$(dirname "$0")
 	. "$script_dir/bitwarden.install.sh"

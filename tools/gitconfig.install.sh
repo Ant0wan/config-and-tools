@@ -3,12 +3,12 @@ if test -e "$HOME"/.gitconfig; then
 	echo "Git already configured."
 	exit 0
 fi
-if ! command -v git &>/dev/null; then
+if ! command -v git >/dev/null 2>&1; then
 	echo "Git is required."
 	script_dir=$(dirname "$0")
 	. "$script_dir/git.install.sh"
 fi
-if ! command -v bw &>/dev/null; then
+if ! command -v bw >/dev/null 2>&1; then
 	echo "BitWarden CLI is required."
 	script_dir=$(dirname "$0")
 	. "$script_dir/bitwarden.install.sh"

@@ -1,5 +1,5 @@
 #!/bin/sh
-if command -v bw &>/dev/null; then
+if command -v bw >/dev/null 2>&1; then
 	echo "BitWarden is already installed."
 	exit 0
 fi

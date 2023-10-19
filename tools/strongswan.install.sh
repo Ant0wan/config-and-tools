@@ -3,20 +3,20 @@ set -xe
 
 # Read user input for network_name
 printf "Enter the network name: "
-read network_name
+read -r network_name
 
 # Read user input for VPN_Gateway
 printf "Enter the VPN gateway: "
-read VPN_Gateway
+read -r VPN_Gateway
 
 # Read user input for VPN_Username
 printf "Enter your VPN username: "
-read VPN_Username
+read -r VPN_Username
 
 # Read user input for VPN_Password
 printf "Enter your VPN password: "
 stty -echo
-read VPN_Password
+read -r VPN_Password
 stty echo
 echo # Move to a new line after password input
 
@@ -47,7 +47,7 @@ if [ -f /etc/os-release ]; then
     esac
 
     # Install packages using the identified package manager
-    sudo "$package_manager" install -y $packages
+    sudo "$package_manager" install -y "$packages"
 
     # Download the CA certificate from a trusted source
     sudo wget https://curl.se/ca/cacert.pem -O "$cacerts"
