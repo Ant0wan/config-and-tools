@@ -21,15 +21,16 @@ _prompt() {
 	cp ${folder}/bat bin/bat
 	selection=$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")
 }
-download_path=$(mktemp -d -t config-and-tools.XXXXXXXXXX)
+download_path=$(mktemp -d -t config.XXXXXXXXXX)
 cd "$download_path"
-wget https://github.com/Ant0wan/config-and-tools/archive/refs/heads/main.zip
+wget https://github.com/Ant0wan/config/archive/refs/heads/main.zip
 unzip main.zip
-cd "${download_path}/config-and-tools-main"
+cd "${download_path}/config-main"
 if test $# -eq 0; then
 	_prompt
 else
 	selection="$(echo $@ | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
+	echo $selection
 fi
 for i in $selection; do
 	if test -e "tools/$i.install.sh"; then

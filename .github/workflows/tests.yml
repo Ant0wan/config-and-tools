@@ -6,19 +6,15 @@ permissions: {}
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    #runs-on: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 15
     strategy:
       matrix:
-        #os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
         tool:
           - ansible
           - aws
-            #          - bash
-            #          - bitwarden
           - c
-            #          - git
           - hadolint
           - hclq
           - jq
@@ -28,7 +24,6 @@ jobs:
           - python
           - rust
           - shellcheck
-            #          - ssh
           - terraformdocs
           - terraform
           - tfam
@@ -36,10 +31,10 @@ jobs:
           - tflint
           - tfswitch
           - vault
-            #- vim
+          - vim
           - yq
+          - opentofu
     steps:
       - uses: actions/checkout@v3
-        #- name: ${{ matrix.tool }} ${{ matrix.os }}
-      - name: ${{ matrix.tool }}
+      - name: ${{ matrix.tool }} ${{ matrix.os }}
         run: ./init.sh ${{ matrix.tool }}
