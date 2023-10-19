@@ -1,7 +1,7 @@
 #!/bin/sh
 set -o errexit
 set -o nounset
-VERSION='1.4.5'
+VERSION='1.6.1'
 BIN="terraform_${VERSION}_linux_amd64.zip"
 curl "https://releases.hashicorp.com/terraform/$VERSION/$BIN" -o "$BIN"
 unzip "$BIN"
