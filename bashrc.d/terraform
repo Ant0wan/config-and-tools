@@ -7,9 +7,9 @@ function clean_tf_ws() {
 	for ws in ${workspaces[@]}
 	do
 		echo "Checking:  $ws"
-		if ! TF_WORKSPACE=$ws terraform state list
+		if ! TF_WORKSPACE="$ws" terraform state list
 		then
-			TF_WORKSPACE=default terraform workspace delete $ws
+			TF_WORKSPACE=default terraform workspace delete "$ws"
 		fi
 	done
 }
