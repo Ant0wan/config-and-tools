@@ -1,6 +1,6 @@
 # .bashrc
 
-complete -W "-interactive -concurrent -workspace-format" -d -f -C $(which terraform) tfam
+complete -W "-interactive -concurrent -workspace-format" -d -f -C "$(which terraform)" tfam
 
 export TFAM_EXE="tfexe"
 export TF_WORKSPACE_FORMAT='$-3_$-1_$-2'
