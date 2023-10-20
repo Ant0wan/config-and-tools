@@ -1,0 +1,5 @@
+# .bashrc
+
+if command -v tofu >/dev/null 2>&1; then
+	export TFEXE="tofu"
+fi
