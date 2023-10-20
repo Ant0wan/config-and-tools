@@ -3,15 +3,16 @@
 ## Credentials
 # If no keys stored in kernel keyring
 if [ -z "$(keyctl rlist @u | cut -d ':' -f3 | xargs echo)" ]; then
-	export BW_SESSION="$(bw login --raw)"
-	bw list items --folderid $(bw get folder config | jq '.id' -r) | jq '.[].fields | select( . != null ) | .[] | [.name, .value]| @tsv' -r |
+	BW_SESSION="$(bw login --raw)"
+	export BW_SESSION
+	bw list items --folderid "$(bw get folder config | jq '.id' -r)" | jq '.[].fields | select( . != null ) | .[] | [.name, .value]| @tsv' -r |
 		while IFS=$'\t' read -r name value; do
-			printf "%-10s %-20s\n" $(keyctl add user $name "$value" @u) $name
+			printf "%-10s %-20s\n" "$(keyctl add user "$name" "$value" @u)" "$name"
 		done
 	bw logout
 	unset BW_SESSION
 fi
 # Export keys from kernel keyring
 for key in $(keyctl list @u | cut -d ':' -f3 | xargs echo); do
-	export ${key}="$(keyctl pipe $(keyctl search @u user ${key}))"
+	export "${key}"="$(keyctl pipe "$(keyctl search @u user "${key}")")"
 done

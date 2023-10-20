@@ -1,5 +1,6 @@
 # .bashrc
 
-export GOPATH=$(go env GOPATH)
+GOPATH=$(go env GOPATH)
+export GOPATH
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
