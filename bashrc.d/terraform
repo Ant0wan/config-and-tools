@@ -3,8 +3,8 @@
 function clean_tf_ws() {
 	unset TF_WORKSPACE
 	terraform workspace select default
-	workspaces=($(terraform workspace list| cut -c3- |grep -v default))
-	for ws in ${workspaces[@]}
+        mapfile -t workspaces < <(terraform workspace list | cut -c3- | grep -v default)
+	for ws in "${workspaces[@]}"
 	do
 		echo "Checking:  $ws"
 		if ! TF_WORKSPACE="$ws" terraform state list
@@ -17,7 +17,7 @@ function clean_tf_ws() {
 function tfcheck() {
     terraform validate
     terraform fmt -recursive
-    tf_fmt_ending_eol *tf
+    tf_fmt_ending_eol ./*tf
     tflint --format=compact .
 }
 
