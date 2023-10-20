@@ -25,6 +25,6 @@ alias fmt='terraform fmt -recursive'
 alias tflock='terraform providers lock -platform=linux_amd64 -platform=linux_arm64 -platform=darwin_amd64 -platform=windows_amd64 -platform=darwin_arm64'
 alias ti='terraform init'
 
-complete -d -f -C $(which terraform) terraform
+complete -d -f -C "$(which terraform)" terraform
 
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"

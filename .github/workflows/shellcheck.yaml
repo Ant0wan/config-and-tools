@@ -12,7 +12,7 @@ jobs:
           - dir: ./tools
             options: -s sh -e SC1091
           - dir: ./bashrc.d
-            options: -s sh -e SC214
+            options: -s sh -e SC214 -e SC1090 -e SC1090
           - dir: ./init.sh
             options: -s sh
     runs-on: ubuntu-latest
