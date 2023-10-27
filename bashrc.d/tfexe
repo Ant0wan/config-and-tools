@@ -1,5 +1,9 @@
 # .bashrc
 
-if command -v tofu >/dev/null 2>&1; then
+if command -v tfswitch >/dev/null 2>&1; then
+	export TFEXE="tfswitch"
+elif command -v tofu >/dev/null 2>&1; then
 	export TFEXE="tofu"
+else
+	export TFEXE="terraform"
 fi
