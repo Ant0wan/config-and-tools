@@ -15,16 +15,13 @@ defaults:
 jobs:
   note:
     runs-on: ubuntu-latest
-      #permissions: write-all
     steps:
     - uses: actions/checkout@v4
     - run: gh release create ${GITHUB_REF#refs/*/} --generate-notes
-
   release:
     needs: [note]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - run: tar -czf conf-${GITHUB_REF#refs/*/}.tar.gz .
-      working-directory: ${{ github.workspace }}
+    - run: git archive --format=tar.gz --output=conf-${GITHUB_REF#refs/*/}.tar.gz HEAD
     - run: gh release upload ${GITHUB_REF#refs/*/} conf-${GITHUB_REF#refs/*/}.tar.gz
