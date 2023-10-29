@@ -30,6 +30,7 @@ jobs:
           - kubectx
           - kubens
           - kustomize
+          - latex
           - opentofu
           - python
           - rust
