@@ -1,53 +1,54 @@
-#name: Tests
-#
-#on: [push]
-#
-#permissions: {}
-#
-#jobs:
-#  test:
-#    #runs-on: ${{ matrix.os }}
-#    runs-on: ubuntu-latest
-#    timeout-minutes: 15
-#    strategy:
-#      matrix:
-#          #os: [ubuntu-latest, macos-latest]
-#        tool:
-#          - ansible
-#          - aws
-#            #- bash
-#            #- bitwarden
-#          - bugzilla
-#          - cf2tf
-#          - checkmake
-#          - c
-#          - essentials
-#            #- gitconfig
-#          - git
-#          - hadolint
-#          - hclq
-#          - jq
-#          - kubectx
-#          - kubens
-#          - kustomize
-#          - latex
-#          - opentofu
-#          - python
-#          - rust
-#          - shellcheck
-#            #- ssh
-#            #- strongswan
-#          - terraformdocs
-#          - terraform
-#          - tfam
-#          - tfexe
-#          - tflint
-#          - tfswitch
-#          - vault
-#          - vim
-#          - yq
-#    steps:
-#      - uses: actions/checkout@v3
-#        #- name: ${{ matrix.tool }} ${{ matrix.os }}
-#      - name: ${{ matrix.tool }}
-#        run: ./init.sh ${{ matrix.tool }}
+name: Tests
+
+on: [push]
+
+permissions: {}
+
+jobs:
+  test:
+    #runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+          #os: [ubuntu-latest, macos-latest]
+        tool:
+          - ansible
+          - aws
+            #- bash
+            #- bitwarden
+          - bugzilla
+          - cf2tf
+          - checkmake
+          - c
+          - docker
+          - essentials
+            #- gitconfig
+          - git
+          - hadolint
+          - hclq
+          - jq
+          - kubectx
+          - kubens
+          - kustomize
+          - latex
+          - opentofu
+          - python
+          - rust
+          - shellcheck
+            #- ssh
+            #- strongswan
+          - terraformdocs
+          - terraform
+          - tfam
+          - tfexe
+          - tflint
+          - tfswitch
+          - vault
+          - vim
+          - yq
+    steps:
+      - uses: actions/checkout@v3
+        #- name: ${{ matrix.tool }} ${{ matrix.os }}
+      - name: ${{ matrix.tool }}
+        run: ./init.sh ${{ matrix.tool }}
