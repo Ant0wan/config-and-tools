@@ -40,7 +40,7 @@
         {
           "foreground": "#8B0000",
           "style": "plain",
-          "template": " {{ .Meaning }} ",
+          "template": " {{ .Code }} {{ .Meaning }} ",
           "type": "exit"
         }
       ],
