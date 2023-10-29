@@ -1,5 +1,6 @@
 # .bashrc
 
+# Ensure a default behavior
 if command -v tfswitch >/dev/null 2>&1; then
 	export TFEXE="tfswitch"
 elif command -v tofu >/dev/null 2>&1; then
@@ -7,3 +8,6 @@ elif command -v tofu >/dev/null 2>&1; then
 else
 	export TFEXE="terraform"
 fi
+
+# Force specific binary
+# export TFEXE="tofu"
