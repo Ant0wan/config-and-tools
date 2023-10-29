@@ -1,6 +1,14 @@
 name: Release
 
+  #on:
+  #  push:
+  #    tags:
+  #      - '[0-9]+.[0-9]+.[0-9]+*'
 on:
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
   push:
     tags:
       - '[0-9]+.[0-9]+.[0-9]+*'
