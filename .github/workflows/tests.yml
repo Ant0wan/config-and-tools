@@ -18,13 +18,15 @@ jobs:
             #- bash
             #- bitwarden
           - bugzilla
+          - c
           - cf2tf
           - checkmake
-          - c
+          - crane
           - docker
           - essentials
             #- gitconfig
           - git
+          - github
           - hadolint
           - hclq
           - jq
@@ -44,6 +46,7 @@ jobs:
           - tfexe
           - tflint
           - tfswitch
+          - vagrant
           - vault
           - vim
           - yq
