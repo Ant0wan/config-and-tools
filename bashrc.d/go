@@ -1,6 +1,7 @@
 # .bashrc
 
-GOPATH=$(go env GOPATH)
-export GOPATH
-export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-
+# set PATH so it includes user's private bin if it exists
+if [ -d "$(go env GOPATH)/bin" ] ; then
+	PATH="$PATH:$(go env GOPATH)/bin"
+	export PATH
+fi
