@@ -1,7 +1,14 @@
 # .bashrc
 
 # set PATH so it includes user's private bin if it exists
+if [ -d "/usr/local/go/bin" ] ; then
+	PATH="$PATH:/usr/local/go/bin"
+	export PATH
+fi
+
+# set PATH so it includes user's private bin if it exists
 if [ -d "$(go env GOPATH)/bin" ] ; then
 	PATH="$PATH:$(go env GOPATH)/bin"
 	export PATH
 fi
+
