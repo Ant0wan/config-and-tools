@@ -1,4 +1,5 @@
 #!/bin/sh
+set -o errexit
 VERSION='3.11'
 if /usr/bin/python --version | grep $VERSION; then
 	echo "Python already installed."

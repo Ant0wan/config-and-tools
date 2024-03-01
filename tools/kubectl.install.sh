@@ -3,7 +3,7 @@ set -o errexit
 VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt)
 SCRIPTNAME="$(basename "$0")"
 BIN="${SCRIPTNAME%.install.sh}"
-TMP="/tmp/${BIN}_${LATEST}"
+TMP="/tmp/${BIN}_${VERSION}"
 OS="$(uname -s | awk '{print tolower($0)}')"
 ARCH="$(uname -m | sed 's/x86_64/amd64/')"
 URL="https://dl.k8s.io/release/${VERSION}/bin/${OS}/${ARCH}/kubectl"
