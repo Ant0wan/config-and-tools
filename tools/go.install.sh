@@ -2,10 +2,10 @@
 set -o errexit
 VERSION=$(
 	select VERSION in $(git ls-remote --tags https://go.googlesource.com/go | awk -F '/' '{print $3}'); do
-		echo $VERSION;
+		echo "$VERSION";
 		break;
 	done)
-printf "\r$VERSION\n"
+printf "\r%s\n" "${VERSION}"
 SCRIPTNAME="$(basename "$0")"
 BIN="${SCRIPTNAME%.install.sh}"
 TMP="/tmp/${BIN}_${VERSION}"
