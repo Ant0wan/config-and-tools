@@ -15,3 +15,4 @@ TARGET="${VERSION}.${OS}-${ARCH}.tar.gz"
 mkdir -p "$TMP"
 wget "https://go.dev/dl/${VERSION}.${OS}-${ARCH}.tar.gz" -O "${TMP}/${TARGET}"
 sudo tar -C "/usr/local" -xzf "${TMP}/${TARGET}"
+#go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.56.2
