@@ -18,7 +18,7 @@ _prompt() {
 	tar -xvf "$target"
 	folder="$(echo "$target" | awk -F '.tar.gz' '{ print $1 }')"
 	cp "${folder}/bat" bin/bat
-	selection="$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")"
+	selection="$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")"
 }
 download_path=$(mktemp -d -t config.XXXXXXXXXX)
 cd "$download_path"
