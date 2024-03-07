@@ -1,0 +1,6 @@
+# .bashrc
+
+source <(helm completion "$(basename "$SHELL")")
+alias h='helm'
+complete -F __start_helm h
+
