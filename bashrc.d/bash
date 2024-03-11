@@ -1,7 +1,5 @@
 # .bashrc
 
-eval "$(oh-my-posh init bash --config ~/.theme.omp.json)"
-
 alias g='grep -arn --exclude-dir=.terraform*'
 alias ls='ls --color=always'
 alias vi='vim'
