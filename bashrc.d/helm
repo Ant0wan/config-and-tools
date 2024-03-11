@@ -1,6 +1,6 @@
 # .bashrc
 
+export HELM_EXPERIMENTAL_OCI=1
 source <(helm completion "$(basename "$SHELL")")
 alias h='helm'
 complete -F __start_helm h
-
