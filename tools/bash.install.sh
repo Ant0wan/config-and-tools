@@ -2,8 +2,8 @@
 set -o errexit
 set -o nounset
 githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/config/"
-if test -e ~/.bashrc; then
-	if ! grep -Fxq '	for rc in ~/.bashrc.d/*; do' ~/.bashrc; then
+
+append_rc() {
 		printf '
 # User specific aliases and functions
 if [ -d ~/.bashrc.d ]; then
@@ -17,11 +17,16 @@ fi
 unset rc
 
 ' >> ~/.bashrc
-	fi
+}
 
+if test -e ~/.bashrc; then
+	if ! grep -Fxq '	for rc in ~/.bashrc.d/*; do' ~/.bashrc; then
+		append_rc
+	fi
 else
 	if test -e /etc/skel/.bashrc; then
 		cp /etc/skel/.bashrc ~
+		append_rc
 	else
 		wget "${githubsource}bashrc" -O "$HOME"/.bashrc
 	fi
