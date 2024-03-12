@@ -12,5 +12,8 @@ mkdir -p "${TMP}"
 wget "https://get.helm.sh/${TARGET}" -O "${TMP}/${TARGET}"
 wget "https://get.helm.sh/${TARGET}.sha256sum" -O "${TMP}/${TARGET}.sha256sum"
 SUM="$(shasum --algorithm 256 "${TMP}/${TARGET}" | awk '{print $1}')"
-EXPECTED_SUM="$(cat "${TMP}/${TARGET}.sha256sum" | awk '{print $1}')"
+EXPECTED_SUM="$(awk '{print $1}' "${TMP}/${TARGET}.sha256sum")"
 test "${SUM}" = "${EXPECTED_SUM}" || (echo "SHA sum of ${TARGET} does not match. Aborting."; exit 1)
+tar -xzf "${TMP}/${TARGET}" -C "${TMP}"
+sudo install "${TMP}/${OS}-${ARCH}/helm" /usr/local/bin/
+helm version
