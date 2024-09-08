@@ -62,11 +62,20 @@
 				{
 					"type": "kubectl",
 					"style": "diamond",
-					"background": "#29315A",
+					"background": "#202329",
+					"leading_diamond": " \ue0b6",
+					"trailing_diamond": "",
+					"foreground": "#3970e4",
+					"template": "{{.Context}}{{if .Namespace}} ☸ <#0ecbf8>{{.Namespace}}{{end}}</>"
+				},
+				{
+					"type": "aws",
+					"style": "diamond",
 					"leading_diamond": " \ue0b6",
 					"trailing_diamond": "\ue0b4",
-					"foreground": "#FBDB0A",
-					"template": "\uFD31 {{.Context}}{{if .Namespace}} :: {{.Namespace}} {{end}}"
+					"foreground": "#ff9900",
+					"background": "#232f3e",
+					"template": " {{.Profile}}{{if .Region}}@{{.Region}}{{end}}"
 				},
 
 				{
