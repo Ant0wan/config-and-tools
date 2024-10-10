@@ -9,6 +9,6 @@ chmod a+rx runsc containerd-shim-runsc-v1
 sudo mv runsc containerd-shim-runsc-v1 /usr/local/bin
 sudo /usr/local/bin/runsc install
 if command -v docker >/dev/null 2>&1; then
-	sudo systemctl reload docker
+	sudo systemctl restart docker
 	docker run --rm --runtime=runsc hello-world
 fi
