@@ -7,7 +7,7 @@ sha512sum -c runsc.sha512 -c containerd-shim-runsc-v1.sha512
 rm -f *.sha512
 chmod a+rx runsc containerd-shim-runsc-v1
 sudo mv runsc containerd-shim-runsc-v1 /usr/local/bin
-/usr/local/bin/runsc install
+sudo /usr/local/bin/runsc install
 if command -v docker >/dev/null 2>&1; then
 	sudo systemctl reload docker
 	docker run --rm --runtime=runsc hello-world
