@@ -6,7 +6,8 @@ elif [ -f /etc/lsb-release ] || [ -f /etc/os-release ] ; then
   sudo apt-get install -y texlive-latex-base \
 	  		  texlive-fonts-recommended \
 	                  texlive-fonts-extra \
-	                  texlive-latex-extra
+	                  texlive-latex-extra \
+			  texlive-lang-french
 else
   echo "Unsupported distribution. This script only supports Fedora and Ubuntu."
   exit 1
