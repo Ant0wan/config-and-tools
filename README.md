@@ -38,7 +38,7 @@ source: [fdn/actions/dns](https://www.fdn.fr/actions/dns/)
 #### La Contre Voie - DoH Service
 
 ```shell
-    DoH: https://doh.lacontrevoie.fr/dns-query
+    DoH : https://doh.lacontrevoie.fr/dns-query
 ```
 
 source: [lacontrevoie/technique/services/doh](https://docs.lacontrevoie.fr/technique/services/doh/)
