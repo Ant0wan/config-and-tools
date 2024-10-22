@@ -17,4 +17,3 @@
 	insteadOf = https://github.com/
 [init]
 	defaultBranch = main
-	templatedir = ~/.git-templates
