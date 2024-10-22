@@ -1,11 +1,12 @@
 <br />
 <p align="center">
-    <img src="https://cdn-icons-png.flaticon.com/512/25/25719.png" alt="Tux" width="80" height="80" style="vertical-align: middle;">
+    <img src="https://cdn-icons-png.flaticon.com/512/25/25719.png" alt="Tux" width="80" height="80">
 
-    <h1 align="center" style="display: inline; font-size: 80px; margin: 0;">conf</h1>
-    <p align="center" style="font-size: 20px;">Automated Linux setup using Bash scripts, config and .bashrc files.</p>
+  <h1 align="center">conf</h1>
+  <p align="center">Automated Linux setup and customization using Bash scripts and .bashrc files.<i></i>
+
+
 </p>
-
 
 
 ---
