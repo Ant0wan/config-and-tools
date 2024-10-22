@@ -1,0 +1,3 @@
+# .bashrc
+
+source <(trivy completion "$(basename "$SHELL")")
