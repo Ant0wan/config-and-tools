@@ -28,7 +28,7 @@ cd "$download_path"
 
 wget https://github.com/Ant0wan/conf/archive/refs/heads/main.zip
 unzip main.zip
-cd "${download_path}/config-main"
+cd "${download_path}/conf-main"
 
 if test $# -eq 0; then
 	_prompt
