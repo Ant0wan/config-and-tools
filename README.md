@@ -2,7 +2,7 @@
 <p align="center">
     <img src="https://cdn-icons-png.flaticon.com/512/25/25719.png" alt="Tux" width="80" height="80">
 
-  <h1 align="center">Config and Tools</h1>
+  <h1 align="center">conf</h1>
   <p align="center">Automated Linux setup and customization using Bash scripts and .bashrc files.<i></i>
 
 
@@ -10,32 +10,47 @@
 
 
 ---
+
+## Install
+
 ```shell
-wget -O - abarthel.dev/init.sh | bash
+wget -O - craftedengineers.cloud/init.sh | bash
 ```
 
 
-<!---
 ```shell
-sh -c "$(wget https://abarthel.dev/init.sh -O -)"
+sh -c "$(wget https://craftedengineers.cloud/init.sh -O -)"
 ```
 
 ```shell
-wget -q -O - abarthel.dev/init.sh | bash
+sh -c "$(wget https://raw.github.com/Ant0wan/conf/master/init.sh -O -)"
 ```
 
 ```shell
-sh -c "$(wget https://raw.github.com/Ant0wan/config-and-tools/master/init.sh -O -)"
+sh -c "$(curl -fsSL https://raw.github.com/Ant0wan/conf/master/init.sh)"
 ```
+
+---
+
+## Misc
+
+### DNS
+
+#### FDN (French Data Network) - an Open Recursive DNS to avoid Internet censorship
 
 ```shell
-sh -c "$(curl -fsSL https://raw.github.com/Ant0wan/config-and-tools/master/init.sh)"
+    ns0.fdn.fr : 80.67.169.12 or 2001:910:800::12 (DNSSEC validation)
+    ns1.fdn.fr : 80.67.169.40 or 2001:910:800::40 (DNSSEC validation)
+    DoT : ns0.fdn.fr and ns1.fdn.fr on port TCP/853
+    DoH : https://ns0.fdn.fr/dns-query and https://ns1.fdn.fr/dns-query
 ```
 
-# DNS
+source: [fdn/actions/dns](https://www.fdn.fr/actions/dns/)
+
+#### La Contre Voie - DoH Service
 
 ```shell
-# DoH: https://doh.lacontrevoie.fr/dns-query
-# DNS rooter: 80.67.169.12, 80.67.169.40
+    DoH: https://doh.lacontrevoie.fr/dns-query
 ```
---->
+
+source: [lacontrevoie/technique/services/doh](https://docs.lacontrevoie.fr/technique/services/doh/)
