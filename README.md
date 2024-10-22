@@ -5,8 +5,6 @@
 
 
 
-## Install
-
 ```shell
 wget -O - craftedengineers.cloud/init.sh | bash
 ```
@@ -23,9 +21,6 @@ sh -c "$(wget https://raw.github.com/Ant0wan/conf/master/init.sh -O -)"
 ```shell
 sh -c "$(curl -fsSL https://raw.github.com/Ant0wan/conf/master/init.sh)"
 ```
-
-
-## Misc
 
 ### DNS
 
