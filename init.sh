@@ -1,5 +1,7 @@
 #!/bin/sh
+
 set -o errexit
+
 _prompt() {
 	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
 	info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
@@ -20,17 +22,21 @@ _prompt() {
 	cp "${folder}/bat" bin/bat
 	selection="$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")"
 }
+
 download_path=$(mktemp -d -t conf.XXXXXXXXXX)
 cd "$download_path"
+
 wget https://github.com/Ant0wan/conf/archive/refs/heads/main.zip
 unzip main.zip
 cd "${download_path}/config-main"
+
 if test $# -eq 0; then
 	_prompt
 else
 	selection="$(echo "$@" | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 	echo "$selection"
 fi
+
 for i in $selection; do
 	if test -e "tools/$i.install.sh"; then
 		sh "tools/$i.install.sh"
@@ -40,6 +46,7 @@ for i in $selection; do
 		cp "bashrc.d/$i" "$HOME/.bashrc.d/$i"
 	fi
 done
+
 if test -n "$BW_SESSION"; then
     bw logout
     unset BW_SESSION
