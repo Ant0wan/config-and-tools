@@ -27,9 +27,9 @@ _install_bat() {
 
 _prompt() {
 	_install_skim
-	exit
+	#exit
 	_install_bat
-	selection="$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")"
+	selection="$(find scripts/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always scripts/{}.sh --color=always")"
 }
 
 download_path=$(mktemp -d -t conf.XXXXXXXXXX)
@@ -47,8 +47,8 @@ else
 fi
 
 for i in $selection; do
-	if test -e "tools/$i.install.sh"; then
-		sh "tools/$i.install.sh"
+	if test -e "scripts/$i.sh"; then
+		sh "scripts/$i.sh"
 	fi
 	if test -e "bashrc.d/$i"; then
 		mkdir -p "$HOME/.bashrc.d/"
