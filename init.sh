@@ -20,9 +20,9 @@ _prompt() {
 	cp "${folder}/bat" bin/bat
 	selection="$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")"
 }
-download_path=$(mktemp -d -t config.XXXXXXXXXX)
+download_path=$(mktemp -d -t conf.XXXXXXXXXX)
 cd "$download_path"
-wget https://github.com/Ant0wan/config/archive/refs/heads/main.zip
+wget https://github.com/Ant0wan/conf/archive/refs/heads/main.zip
 unzip main.zip
 cd "${download_path}/config-main"
 if test $# -eq 0; then
