@@ -27,6 +27,7 @@ _install_bat() {
 
 _prompt() {
 	_install_skim
+	exit
 	_install_bat
 	selection="$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")"
 }
