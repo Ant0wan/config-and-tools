@@ -3,41 +3,25 @@
 set -o errexit
 
 _prompt() {
-    # Check if 'sk' (skim) is installed
-    if ! command -v sk &> /dev/null; then
-        # If 'sk' is not installed, download and install it
-        wget -q -O - https://raw.githubusercontent.com/lotabout/skim/master/install | sh
-    else
-        echo "skim is already installed."
-    fi
-
-    # Fetch the latest release info for 'bat'
-    info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
-    id="$(echo "$info" | awk 'NR==2')"
-    pkgs="$(curl "https://api.github.com/repos/sharkdp/bat/releases/${id}/assets" | jq .[].name -r)"
-    kernel="$(uname -s | awk '{print tolower($0)}')"
-    arch="$(uname -m)"
-    list="$(echo "$pkgs" | grep "$kernel" | grep "$arch")"
-    target=""
-
-    # Select musl if available, otherwise select gnu
-    if echo "$list" | grep -q "musl" >/dev/null 2>&1; then
-        target="$(echo "$list" | grep "musl")"
-    else
-        target="$(echo "$list" | grep "gnu")"
-    fi
-
-    # Download and extract the 'bat' package
-    wget "https://github.com/sharkdp/bat/releases/latest/download/$target"
-    tar -xvf "$target"
-
-    folder="$(echo "$target" | awk -F '.tar.gz' '{ print $1 }')"
-    cp "${folder}/bat" bin/bat
-
-    # Use skim (sk) to make a selection from tools/
-    selection="$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")"
+	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
+	info=$(curl https://api.github.com/repos/sharkdp/bat/releases/latest | jq .tag_name,.id -r)
+	id="$(echo "$info" | awk 'NR==2')"
+	pkgs="$(curl "https://api.github.com/repos/sharkdp/bat/releases/${id}/assets" | jq .[].name -r)"
+	kernel="$(uname -s | awk '{print tolower($0)}')"
+	arch="$(uname -m)"
+	list="$(echo "$pkgs" | grep "$kernel" | grep "$arch")"
+	target=""
+	if echo "$list" | grep -q "musl" >/dev/null 2>&1; then
+		target="$(echo "$list" | grep "musl")"
+	else
+		target="$(echo "$list" | grep "gnu")"
+	fi
+	wget "https://github.com/sharkdp/bat/releases/latest/download/$target"
+	tar -xvf "$target"
+	folder="$(echo "$target" | awk -F '.tar.gz' '{ print $1 }')"
+	cp "${folder}/bat" bin/bat
+	selection="$(find tools/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always tools/{}.install.sh --color=always")"
 }
-
 
 download_path=$(mktemp -d -t conf.XXXXXXXXXX)
 cd "$download_path"
