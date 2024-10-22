@@ -15,6 +15,8 @@ if ! command -v bw >/dev/null 2>&1; then
 fi
 githubsource="https://raw.githubusercontent.com/Ant0wan/config-and-tools/main/config/"
 wget "${githubsource}gitconfig" -O "$HOME"/.gitconfig
+mkdir -p ~/.git-templates/hooks
+# Could copy all hooks from there
 wget "${githubsource}gitignore" -O "$HOME"/.gitignore
 if test -z "$BW_SESSION"; then
 	BW_SESSION=$(bw login --raw)
