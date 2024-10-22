@@ -1,6 +1,6 @@
 <p align="center">
   <h1 align="center">conf</h1>
-  <p align="center"> Configuration bootstrap and bash scripts. <i></i>
+  <p align="center"> Configuration bootstrap, files and bash scripts. <i></i>
 </p>
 
 
