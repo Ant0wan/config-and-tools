@@ -4,7 +4,6 @@
 </p>
 
 
----
 
 ## Install
 
@@ -25,7 +24,6 @@ sh -c "$(wget https://raw.github.com/Ant0wan/conf/master/init.sh -O -)"
 sh -c "$(curl -fsSL https://raw.github.com/Ant0wan/conf/master/init.sh)"
 ```
 
----
 
 ## Misc
 
