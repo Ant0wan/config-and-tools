@@ -60,4 +60,4 @@ if test -n "$BW_SESSION"; then
     bw logout
     unset BW_SESSION
 fi
-#rm -rf "${download_path}"
+rm -rf "${download_path}"
