@@ -1,10 +1,8 @@
 #!/bin/bash
 set -o errexit
 
-selection="$(find scripts/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | bin/sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bin/bat --color=always scripts/{}.sh --color=always")"
-
 if test $# -eq 0; then
-	_prompt
+	selection="$(find scripts/ -type f -printf "%f\n" | awk -F '.' '{ print $1 }' | sort | sk --multi --bind 'right:select-all,left:deselect-all,space:toggle+up' --preview="bat --color=always scripts/{}.sh --color=always")"
 else
 	selection="$(echo "$@" | tr ' ' '\n' | sort -u | tr '\n' ' ' | xargs echo | sort)"
 	echo "$selection"
