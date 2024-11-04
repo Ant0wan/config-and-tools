@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 set -o errexit
 
 _install_skim() {
-	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | sh
+	wget -q -O -  https://raw.githubusercontent.com/lotabout/skim/master/install | bash
 }
 
 _install_bat() {
